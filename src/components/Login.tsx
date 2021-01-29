@@ -1,9 +1,13 @@
 import React from 'react'
+import styles from '../styles/login.module.css'
+
 
 export const Login = () => {
     return (
         <div>
-            hello, this is login page
+           <div className={styles.mainContainer}>
+               
+           </div>
         </div>
     )
 }
