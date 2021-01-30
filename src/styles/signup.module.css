@@ -2,22 +2,33 @@
     display: flex;
     justify-content: center;
     align-items: center; 
+    position: relative;
+    height: 100vh;
+}
+.mainSignupContainer::after {
+    position: absolute;
+    content: '';
+    background-image: url('../assets/image.jpg');
+    width: 1200px;
+    height: 700px;
+    z-index: -1;
 }
 .signupForm {
-    border: 1px solid black;
     width: 500px;
-    height: 500px;
-    align-items: center;
+    height: 600px;
     font-size: 20px;
     color: rgb(43, 40, 40);
-    height: 600px;
+    margin-left: 400px;
+    box-shadow: 0px 0px 8px 0px  rgb(184, 184, 184);
+    font-size: 20px;
+    background-color: white;
 }
 .signupContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 50px;
+    padding: 30px;
 }
 .emailContainer, .passwordContainer{
     display: flex;
@@ -29,18 +40,21 @@
     width: 430px;
     height: 40px;
 }
-.signupSpan {
+.spanDiv {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    padding: 20px;
-    position: relative;
+    justify-content: space-around;
+    padding-top: 50px;
 }
-.signupSpan::after {
+.signupSpan {
+    /* position: relative; */
+    border-bottom: 5px solid rgb(255, 227, 68);
+}
+.signupSpan::before {
     content: '';
     position: absolute;
     width: 50px;
-    height: 10px;
+    height: 8px;
     background-color: rgb(255, 227, 68);
     margin-top: 15px;
     margin-right: 20px;

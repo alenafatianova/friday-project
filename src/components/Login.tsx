@@ -1,15 +1,21 @@
 import React from 'react'
 import styles from '../styles/login.module.css'
+import image from '../assets/image.jpg'
 
+type loginPropsType = {
+    image: string
+}
 
-export const Login = () => {
+export const Login = (props: loginPropsType) => {
     return (
         <div className={styles.mainContainer}>
-    
+               
                <div className={styles.loginForm}>
-               <div>
-                   <div className={styles.signupSpan}><span>Login</span></div>
-               <div className={styles.signupSpan}><span>Sign Up</span></div></div>
+               
+               <div className={styles.spanDiv}>
+                    <div className={styles.loginSpan}><span>Login</span></div>
+                    <div className={styles.signupSpan}><span>Sign Up</span></div>
+                </div>
                     <div className={styles.dataContainer}>
                         <div className={styles.emailContainer}>
                              <label className={styles.emailLabel}>Email</label>
@@ -27,6 +33,7 @@ export const Login = () => {
                     <div className={styles.buttonContainer}>
                         <button className={styles.buttonLogin}> Log In</button>
                     </div>
+                    
                </div>
            
         </div>

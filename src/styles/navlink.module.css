@@ -3,8 +3,6 @@
     display: flex;
     flex-direction: column;
     width: 300px; 
-}
-.profileLink, .pageNotFoundLink, .recoveryLink, .resetLink, .testLink {
     color: rgb(43, 40, 40);
     font-size: 20px;
     font-family: 'Courier New', Courier, monospace;

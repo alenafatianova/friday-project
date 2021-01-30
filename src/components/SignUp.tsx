@@ -9,7 +9,7 @@ export const SignUp = () => {
            
              <div className={styles.signupForm}>
              <div className={styles.spanDiv}>
-             <span>Login</span>
+             <span className={styles.loginSpan}>Login</span>
              <span className={styles.signupSpan}>Sign Up</span>
              </div>
              <div className={styles.signupContainer}>
