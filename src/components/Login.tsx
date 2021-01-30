@@ -7,6 +7,9 @@ export const Login = () => {
         <div className={styles.mainContainer}>
     
                <div className={styles.loginForm}>
+               <div>
+                   <div className={styles.signupSpan}><span>Login</span></div>
+               <div className={styles.signupSpan}><span>Sign Up</span></div></div>
                     <div className={styles.dataContainer}>
                         <div className={styles.emailContainer}>
                              <label className={styles.emailLabel}>Email</label>
