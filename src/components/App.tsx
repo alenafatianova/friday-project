@@ -19,9 +19,9 @@ export const App = () => {
     <HashRouter>
       <div className={styles.appStyles}>
             <div><Header/></div>
+            <Navlink/>
             <div className={styles.navlinkStyle}> 
-            
-            <div className={styles.loginStyle}> <Route exact path={'/login'} component={Login} /></div>
+            <Route exact path={'/login'} component={Login} />
             <Route exact path={'/signup'} component={SignUp} />
             <Route exact path={'/profile'} component={Profile}/>
             <Route exact path={'/404'} component={ Page404 }/>

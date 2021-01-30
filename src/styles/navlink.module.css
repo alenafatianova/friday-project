@@ -1,9 +1,13 @@
-
-.linksContainer {
-    display: flex;
-    flex-direction: column;
-    width: 300px; 
-    color: rgb(43, 40, 40);
+.mainDiv {
+    margin-bottom: 50px;
+    margin-top: 50px;
     font-size: 20px;
-    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: flex-start;
+    align-items: flex-start;  
+}
+.mainDiv a {
+    color: rgb(71, 70, 70);
 }
