@@ -1,7 +1,11 @@
-.mainDiv {
+
+.linksContainer {
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
-    justify-content: space-between;
-    padding-bottom: 30px;
+    width: 300px; 
+}
+.profileLink, .pageNotFoundLink, .recoveryLink, .resetLink, .testLink {
+    color: rgb(43, 40, 40);
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
 }
