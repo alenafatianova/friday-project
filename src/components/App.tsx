@@ -27,7 +27,7 @@ export const App = () => {
             <Route exact path={'/404'} component={ Page404 }/>
             <Route exact path={'/recoveryPassword'} component={ RecoveryPassword }/>
             <Route exact path={'/resetPassword'} component={ ResetPassword }/>
-            <Route exact path={'/testPage'} component={ TestPage }/>
+            <Route exact path={'/test'} component={ TestPage }/>
             </div>
       </div>
     </HashRouter>
