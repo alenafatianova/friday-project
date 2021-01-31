@@ -1,16 +1,34 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import styles from '../styles/login.module.css'
-import image from '../assets/image.jpg'
+import { useState } from 'react'
+import { spawn } from 'child_process'
 
-type loginPropsType = {
-    image: string
-}
+/*
+    1. create inividual state for email and password
+    2. create func for updating the  states (input (e))
+    3.  {email.length === 0 && <span></span>}
+    4. input value = {email} in email && input value={password} in password
+*/
 
-export const Login = (props: loginPropsType) => {
+export const Login = () => {
+    
+    //--проверка email, password forms 
+
+    const [emailValue, setEmailValue] = useState<string>('')
+    const [passwordValue, setPasswordValue] = useState<string>('')
+
+    const updateEmailValue = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmailValue(e.currentTarget.value)
+    }
+    const updatePasswordValue = (e: ChangeEvent<HTMLInputElement>) => {
+        setPasswordValue(e.currentTarget.value)
+    }
+
+
     return (
         <div className={styles.mainContainer}>
                
-               <div className={styles.loginForm}>
+               <form className={styles.loginForm}>
                
                <div className={styles.spanDiv}>
                     <div className={styles.loginSpan}><span>Login</span></div>
@@ -20,13 +38,29 @@ export const Login = (props: loginPropsType) => {
                         <div className={styles.emailContainer}>
                              <label className={styles.emailLabel}>Email</label>
                             <div>
-                                <input type="text" placeholder='Enter' className={styles.emailInput} />
+                                <input 
+                                    type="text" 
+                                    placeholder='Enter' 
+                                    className={styles.emailInput} 
+                                    onChange={updateEmailValue}
+                                    value={emailValue}
+                                />
+                                {emailValue.length === 0 && <div className={styles.errorCheckStyle}>Email is required</div>} 
                             </div>
                         </div>
                         <div>
                         <div className={styles.passwordContainer}>
                             <label className={styles.passwordLabel}>Password</label>
-                            <div><input type="text" placeholder='Enter' className={styles.passwordInput} /></div>
+                            <div>
+                                <input 
+                                    type="text" 
+                                    placeholder='Enter' 
+                                    className={styles.passwordInput} 
+                                    value={passwordValue}
+                                    onChange={updatePasswordValue}
+                                />
+                            {passwordValue.length === 0 && <div className={styles.errorCheckStyle}>Password is required</div>}    
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -34,7 +68,7 @@ export const Login = (props: loginPropsType) => {
                         <button className={styles.buttonLogin}> Log In</button>
                     </div>
                     
-               </div>
+               </form>
            
         </div>
     )

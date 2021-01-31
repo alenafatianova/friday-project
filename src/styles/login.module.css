@@ -70,3 +70,7 @@
     border: none;
     background-color: rgb(255, 227, 68);
 }
+.errorCheckStyle {
+    color: red;
+    font-size: 14px;
+}
