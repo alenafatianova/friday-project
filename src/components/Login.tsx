@@ -1,14 +1,9 @@
 import React, { ChangeEvent } from 'react'
 import styles from '../styles/login.module.css'
 import { useState } from 'react'
-import { spawn } from 'child_process'
 
-/*
-    1. create inividual state for email and password
-    2. create func for updating the  states (input (e))
-    3.  {email.length === 0 && <span></span>}
-    4. input value = {email} in email && input value={password} in password
-*/
+
+
 
 export const Login = () => {
     
@@ -16,6 +11,15 @@ export const Login = () => {
 
     const [emailValue, setEmailValue] = useState<string>('')
     const [passwordValue, setPasswordValue] = useState<string>('')
+    const [emailEmpty, setEmailEmpty] = useState<boolean>(false)
+    const [passwordEmpty, setPasswordEmpty] = useState<boolean>(false)
+    
+    const emailCheck = () => {
+        setEmailEmpty(emailValue.length === 0)
+    }
+    const passwordCheck = () => {
+        setPasswordEmpty(passwordValue.length === 0)
+    }
 
     const updateEmailValue = (e: ChangeEvent<HTMLInputElement>) => {
         setEmailValue(e.currentTarget.value)
@@ -23,7 +27,7 @@ export const Login = () => {
     const updatePasswordValue = (e: ChangeEvent<HTMLInputElement>) => {
         setPasswordValue(e.currentTarget.value)
     }
-
+   
 
     return (
         <div className={styles.mainContainer}>
@@ -42,10 +46,12 @@ export const Login = () => {
                                     type="text" 
                                     placeholder='Enter' 
                                     className={styles.emailInput} 
-                                    onChange={updateEmailValue}
                                     value={emailValue}
+                                    onChange={updateEmailValue}
+                                    onBlur={emailCheck}
                                 />
-                                {emailValue.length === 0 && <div className={styles.errorCheckStyle}>Email is required</div>} 
+                                {emailEmpty && <div className={styles.errorCheckStyle}>Email is required</div>}  
+                                
                             </div>
                         </div>
                         <div>
@@ -58,8 +64,9 @@ export const Login = () => {
                                     className={styles.passwordInput} 
                                     value={passwordValue}
                                     onChange={updatePasswordValue}
+                                    onBlur={passwordCheck}
                                 />
-                            {passwordValue.length === 0 && <div className={styles.errorCheckStyle}>Password is required</div>}    
+                            {passwordEmpty && <div className={styles.errorCheckStyle}>Password is required</div>}    
                             </div>
                         </div>
                     </div>

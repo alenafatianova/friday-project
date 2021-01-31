@@ -1,10 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import styles from '../styles/notFoundPage.module.css'
 
 export const Page404 = () => {
     return (
-        <div>
-            <div><NavLink to='/page404'>Oops... </NavLink></div>
+      <div className={styles.container}>
+            <span className={styles.getLostSpan}>Oops... You get lost</span>
+            <div className={styles.mainDiv}></div>
         </div>
     )
 }

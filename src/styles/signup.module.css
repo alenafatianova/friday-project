@@ -44,21 +44,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    padding-top: 50px;
+    margin-top: 50px;
 }
 .signupSpan {
-    /* position: relative; */
     border-bottom: 5px solid rgb(255, 227, 68);
-}
-.signupSpan::before {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 8px;
-    background-color: rgb(255, 227, 68);
-    margin-top: 15px;
-    margin-right: 20px;
-    z-index: -1;
 }
 .nameInput, .surnameInput {
     width: 200px;
@@ -73,6 +62,9 @@
 .firstNameContainer {
     padding-right: 20px;
 }
+.firstNameContainer, .secondNameContainer {
+    height: 100px;
+}
 .buttonContainer{
     display: flex;
     justify-content: center;
@@ -83,4 +75,8 @@
     border-radius: 20px;
     border: none;
     background-color: rgb(255, 227, 68);
+}
+.errorCheckStyle {
+    color: red;
+    font-size: 14px;
 }
