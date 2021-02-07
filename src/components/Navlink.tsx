@@ -8,7 +8,7 @@ export const  Navlink = () => {
           
             <div><NavLink to={'/profile'}>Profile</NavLink></div>
             <div><NavLink to={'/404'} >404</NavLink></div>
-            <div><NavLink to={'/recoveryPassword'}>Forgot Password</NavLink></div>
+            <div><NavLink to={'/forgotPassword'}>Forgot Password</NavLink></div>
             <div> <NavLink to={'/resetPassword'}>Reset Password</NavLink></div>
             <NavLink to={'/test'}>Test</NavLink>
         
