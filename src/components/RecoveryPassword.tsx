@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react'
 import styles from '../styles/recoverPassword.module.css'
 
 
-export const RecoveryPassword = () => {
+export const ForgotPassword = () => {
     const [forgotPassword, setForgotPassword] = useState<string>('')
     const [emptyEmail, setEmptyEmail] = useState<boolean>(false)
     const emailValue = (e: ChangeEvent<HTMLInputElement>) => setForgotPassword(e.currentTarget.value)
