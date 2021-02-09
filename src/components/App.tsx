@@ -4,7 +4,7 @@ import { Login } from './Login';
 import { SignUp } from './SignUp';
 import { Profile } from './Profile';
 import { Page404 } from './Page404';
-import { ForgotPassword } from './RecoveryPassword';
+import { ForgotPassword } from './ForgotPassword';
 import { ResetPassword } from './ResetPassword';
 import { TestPage } from './TestPage'; 
 import { Header } from './Header';

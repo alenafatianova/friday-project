@@ -23,4 +23,4 @@ ReactDOM.render(
 reportWebVitals();
 
 export const apiAddress = "https://neko-back.herokuapp.com/2.0"
-axios.post(`${apiAddress}/friends`)
+//axios.post(`${apiAddress}/friends`)

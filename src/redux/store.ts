@@ -1,7 +1,13 @@
 import { appReducer } from './app-reducer';
-import React from 'react'
-import { createStore } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { forgotPasswordReducer } from './forgot-password-reducer';
+import thunkMiddleware from 'redux-thunk'
 
 
-export const store = createStore(appReducer);
+const reducers = combineReducers({
+    app: appReducer,
+    forgotPassword: forgotPasswordReducer,
+})
+export type appStateType = ReturnType<typeof reducers>
+export const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
