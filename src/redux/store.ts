@@ -1,6 +1,6 @@
-import { appReducer } from './app-reducer';
+import { appReducer } from './reducers/app-reducer';
 import { applyMiddleware, combineReducers, createStore } from 'redux'
-import { forgotPasswordReducer } from './forgot-password-reducer';
+import { forgotPasswordReducer } from './reducers/forgot-password-reducer';
 import thunkMiddleware from 'redux-thunk'
 
 

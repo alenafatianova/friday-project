@@ -1,21 +1,22 @@
 import React, { ChangeEvent, useState } from 'react'
-import { connect, useDispatch } from 'react-redux'
-import { sendEmailThunk } from '../redux/forgot-password-reducer'
-import { appStateType } from '../redux/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { isLoading, sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
 import styles from '../styles/forgotPassword.module.css'
-import { instance } from './../api/forgot-password-api';
+
 
 export const ForgotPassword = () => {
-    const [forgotPassword, setForgotPassword] = useState<string>('')
-    const emailValue = (e: ChangeEvent<HTMLInputElement>) => setForgotPassword(e.currentTarget.value)
-   
+    const [emailInput, setEmailInput] = useState<string>('')
+    const emailValue = (e: ChangeEvent<HTMLInputElement>) => setEmailInput(e.currentTarget.value)
     const dispatch = useDispatch()
+    const history = useHistory()
 
-    const onSendEmail = () => {
-        dispatch(sendEmailThunk(forgotPassword))
+    const onSendEmail = (email: string) => {
+        dispatch(sendEmailThunk(email))
+        history.push('/resetPassword')
     }
+   
 
-    
     return (
         <div className={styles.mainContainer}>
         <form className={styles.recoverForm}>
@@ -25,13 +26,13 @@ export const ForgotPassword = () => {
                       <span className={styles.enterEmailSpan}>
                           Enter your email to receive password
                       </span>
-                      <div>Loading...</div> 
+                      {/* {loading ? <div>Loading...</div> : <div>Not Loading...</div> } */}
                      <div className={styles.inputStyle}>
                          <input 
                             type="email" 
                             placeholder='Your email address' 
                             className={styles.recoverInput} 
-                            value={forgotPassword}
+                            value={emailInput}
                             onChange={emailValue}
                          />
                      </div>
@@ -40,8 +41,8 @@ export const ForgotPassword = () => {
              <div className={styles.buttonContainer}>
                 <button 
                     className={styles.buttonReset} 
-                    disabled={!forgotPassword}
-                    onClick={() => onSendEmail()}
+                    disabled={!emailInput}
+                    onClick={() => onSendEmail(emailInput)}
                     > Send
                 </button>
              </div> 
@@ -49,8 +50,5 @@ export const ForgotPassword = () => {
  </div>
 )
 }
-const mapStateToProps = (state: appStateType) => ({
-    email: state.forgotPassword.email
-})
-export default connect(mapStateToProps, {sendEmailThunk})(ForgotPassword)
+
 
