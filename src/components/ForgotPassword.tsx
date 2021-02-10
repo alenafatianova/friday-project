@@ -1,22 +1,29 @@
 import React, { ChangeEvent, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { isLoading, sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
+import { sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
 import styles from '../styles/forgotPassword.module.css'
+
 
 
 export const ForgotPassword = () => {
     const [emailInput, setEmailInput] = useState<string>('')
     const emailValue = (e: ChangeEvent<HTMLInputElement>) => setEmailInput(e.currentTarget.value)
+    const [inputEmpty, setInputEmpty] = useState<boolean>(false)
+    const inputCheck = () => setInputEmpty(emailInput.length === 0)
+    const [loading, setLoading] = useState<boolean>(false)
+
+
     const dispatch = useDispatch()
     const history = useHistory()
 
     const onSendEmail = (email: string) => {
         dispatch(sendEmailThunk(email))
         history.push('/resetPassword')
+        setLoading(true)
     }
    
-
+  
     return (
         <div className={styles.mainContainer}>
         <form className={styles.recoverForm}>
@@ -24,9 +31,9 @@ export const ForgotPassword = () => {
              <div className={styles.dataContainer}>
                  <div className={styles.recoverPasswordContainer}>
                       <span className={styles.enterEmailSpan}>
-                          Enter your email to receive password
+                          Enter you email to receive password
                       </span>
-                      {/* {loading ? <div>Loading...</div> : <div>Not Loading...</div> } */}
+                      {loading ? <div>Loading...</div> : <div>Not Loading...</div> }
                      <div className={styles.inputStyle}>
                          <input 
                             type="email" 
@@ -34,7 +41,9 @@ export const ForgotPassword = () => {
                             className={styles.recoverInput} 
                             value={emailInput}
                             onChange={emailValue}
+                            onBlur={inputCheck}
                          />
+                         {inputEmpty && <div className={styles.errorCheckStyle}>Required</div>}
                      </div>
                  </div>
              </div>
