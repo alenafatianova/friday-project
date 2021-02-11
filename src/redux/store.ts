@@ -1,4 +1,4 @@
-import { appReducer } from './app-reducer';
+import { appReducer } from './reducers/app-reducer';
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { loginReducer} from "./login-reducer";

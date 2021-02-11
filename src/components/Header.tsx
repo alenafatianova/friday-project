@@ -4,7 +4,7 @@ import styles from '../styles/header.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redux/store";
 import {logoutTC} from "../redux/login-reducer";
-import {RequestStatusType} from "../redux/app-reducer";
+import {RequestStatusType} from "../redux/reducers/app-reducer";
 
 
 export const Header = () => {
