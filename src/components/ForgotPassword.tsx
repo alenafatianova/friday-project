@@ -6,7 +6,7 @@ import styles from '../styles/forgotPassword.module.css'
 
 
 
-export const ForgotPassword = () => {
+export const ForgotPassword = React.memo(() => {
     const [emailInput, setEmailInput] = useState<string>('')
     const emailValue = (e: ChangeEvent<HTMLInputElement>) => setEmailInput(e.currentTarget.value)
     const [inputEmpty, setInputEmpty] = useState<boolean>(false)
@@ -62,6 +62,6 @@ export const ForgotPassword = () => {
         </form>
  </div>
 )
-}
+})
 
 
