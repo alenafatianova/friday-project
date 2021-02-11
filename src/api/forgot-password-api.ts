@@ -33,8 +33,10 @@ export const forgotPasswordAPI = {
     },
     async setNewPassword(password: string, resetPasswordToken: string) {
         try{
-            const response = await instance.post<setNewPasswordResponseType>(`auth/set-new-password$token$`, {password, resetPasswordToken})
-            return alert(response.data.info);
+            const response = await instance.post<setNewPasswordResponseType>(`auth/set-new-password/`, {password, resetPasswordToken})
+            if(response.status === 200) {
+                return alert(response.data.info);
+            } 
         }
         catch(error) {
             return alert(error);
