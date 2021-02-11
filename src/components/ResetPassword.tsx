@@ -8,7 +8,7 @@ type resetPasswordProps = {
     isLoggedIn: false
 }
 
-export const ResetPassword = (props: resetPasswordProps) => {
+export const ResetPassword = React.memo((props: resetPasswordProps) => {
 
     const [newPasswordInput, setNewPasswordInput] = useState<string>('')
     const [newPasswordEmpty, setnewPasswordEmpty] = useState<boolean>(false)
@@ -56,4 +56,4 @@ export const ResetPassword = (props: resetPasswordProps) => {
                </form>
         </div>
     )
-}
+})
