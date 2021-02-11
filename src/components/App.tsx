@@ -8,13 +8,29 @@ import { ForgotPassword } from './ForgotPassword';
 import { ResetPassword } from './ResetPassword';
 import { TestPage } from './TestPage'; 
 import { Header } from './Header';
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Navlink } from './Navlink';
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../redux/store";
+import {initializeAppTC} from "../redux/app-reducer";
 
 
 export const App = () => {
+    const isInitialized=useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const  dispatch =useDispatch()
+
+
+    // useEffect(()=> {
+    //
+    //     dispatch(initializeAppTC())
+    // }, [])
+    // //
+    // if (!isInitialized) {
+    //     return <Redirect to={'/login'} />
+    // }
+
   return (
-    <HashRouter>
+
       <div className={styles.appStyles}>
             <div><Header/></div>
             <Navlink/>
@@ -29,7 +45,7 @@ export const App = () => {
             <Route exact path={'/test'} component={ TestPage }/>
             </div>
       </div>
-    </HashRouter>
+
   )
 }
 

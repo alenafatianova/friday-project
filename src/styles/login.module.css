@@ -35,7 +35,7 @@
     height: 40px;
     margin-top: 10px;
 }
-.emailContainer, .passwordContainer {
+.emailContainer, .passwordContainer, .rememberMeContainer {
     margin-top: 20px;
 }
 .spanDiv {
@@ -50,6 +50,17 @@
 .buttonContainer{
     display: flex;
     justify-content: center;
+  }
+
+.loadingStatus {
+    display: flex;
+    justify-content: center;
+    color:blue;
+}
+.failedStatus {
+    display: flex;
+    justify-content: center;
+    color:red;
 }
 .buttonLogin {
     width: 150px;
