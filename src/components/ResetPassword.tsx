@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useParams } from 'react-router-dom'
 import { setNewPasswordThunk } from '../redux/reducers/forgot-password-reducer'
 import styles from '../styles/resetPassword.module.css'
 
@@ -17,14 +17,13 @@ export const ResetPassword = React.memo((props: resetPasswordProps) => {
   
     const dispatch = useDispatch()
 
-    const setPassword = useCallback((newPassword: string, resetPasswordToken: string) => {
+    const {resetPasswordToken} = useParams<{resetPasswordToken: string}>();
+    console.log(resetPasswordToken)
+
+    const setPassword = useCallback((newPassword: string, resetPasswordToken: string) => { 
         dispatch(setNewPasswordThunk(newPassword, resetPasswordToken)) 
     },[])
 
-    //---- plug by now, remove after merge-----
-    if(!props.isLoggedIn) {
-        return <Redirect to={'/login'} />
-    }
 
     return (
         <div className={styles.mainContainer}>
@@ -50,7 +49,7 @@ export const ResetPassword = React.memo((props: resetPasswordProps) => {
                         <button 
                             className={styles.buttonReset}
                             disabled={!newPasswordInput} 
-                            onClick={() => setPassword}
+                            onClick={() => setPassword(newPasswordInput, resetPasswordToken)}
                             > Reset</button>
                     </div> 
                </form>
