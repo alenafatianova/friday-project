@@ -33,7 +33,11 @@ export const ForgotPassword = () => {
                       <span className={styles.enterEmailSpan}>
                           Enter you email to receive password
                       </span>
-                      {loading ? <div>Loading...</div> : <div>Not Loading...</div> }
+                      {
+                      loading 
+                      ? <div>Loading...</div> 
+                      : <div>Not Loading...</div> 
+                      }
                      <div className={styles.inputStyle}>
                          <input 
                             type="email" 
