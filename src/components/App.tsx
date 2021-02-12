@@ -12,12 +12,12 @@ import React from 'react';
 import { Navlink } from './Navlink';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redux/store";
-import {initializeAppTC} from "../redux/reducers/app-reducer";
+//import {initializeAppTC} from "../redux/reducers/app-reducer";
 
 
 export const App = () => {
     const isInitialized=useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
-    const  dispatch =useDispatch()
+    //const  dispatch =useDispatch()
 
 
     // useEffect(()=> {
