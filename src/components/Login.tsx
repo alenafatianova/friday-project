@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from 'react-router-dom';
 import {AppRootStateType} from "../redux/store";
 import {loginTC} from "../redux/login-reducer";
-import {RequestStatusType} from "../redux/app-reducer";
+import {RequestStatusType} from "../redux/reducers/app-reducer";
 
 
 export const Login = () => {

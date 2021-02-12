@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Redirect, useParams } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
 import { setNewPasswordThunk } from '../redux/reducers/forgot-password-reducer'
 import styles from '../styles/resetPassword.module.css'
 

@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux'
-import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./reducers/app-reducer";
 import {authAPI, LoginRequestType} from "../api/Login-api";
 import {setUserAC, SetUserActionsType} from "./profile-reducer";
 

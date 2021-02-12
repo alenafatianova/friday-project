@@ -8,11 +8,11 @@ import { ForgotPassword } from './ForgotPassword';
 import { ResetPassword } from './ResetPassword';
 import { TestPage } from './TestPage'; 
 import { Header } from './Header';
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Navlink } from './Navlink';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redux/store";
-import {initializeAppTC} from "../redux/app-reducer";
+import {initializeAppTC} from "../redux/reducers/app-reducer";
 
 
 export const App = () => {
@@ -32,10 +32,10 @@ export const App = () => {
   return (
 
       <div className={styles.appStyles}>
+        <HashRouter>
             <div><Header/></div>
             <Navlink/>
             <div className={styles.navlinkStyle}> 
-           
             <Route exact path={'/login'} component={Login} />
             <Route exact path={'/signup'} component={SignUp} />
             <Route exact path={'/profile'} component={Profile}/>
@@ -44,6 +44,7 @@ export const App = () => {
             <Route exact path={'/resetPassword/:resetPasswordToken'} component={ ResetPassword }/>
             <Route exact path={'/test'} component={ TestPage }/>
             </div>
+            </HashRouter>
       </div>
 
   )
