@@ -1,8 +1,8 @@
+import { spawn } from 'child_process'
 import React, { ChangeEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { isRequestLoading, RequestLoadingType, sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
-import { AppRootStateType } from '../redux/store'
+import { requestStatus, sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
 import styles from '../styles/forgotPassword.module.css'
 
 
@@ -15,28 +15,27 @@ export const ForgotPassword = React.memo(() => {
     const inputCheck = () => setInputEmpty(emailInput.length === 0)
 
     const dispatch = useDispatch()
-    const history = useHistory()
-    const loading = useSelector<AppRootStateType, RequestLoadingType>(state => state.forgotPassword.isRequestLoading) 
+    const history = useHistory() 
 
     const onSendEmail = (email: string) => {
         dispatch(sendEmailThunk(email))
-        history.push('/resetPassword')
+        setEmailInput('')
+        //history.push('/resetPassword')
     }
+
    
   
     return (
         <div className={styles.mainContainer}>
         <form className={styles.recoverForm}>
              <div className={styles.recoverSpan}>
-            {loading === 'Loading' ? <div>Loading...</div>  :  <span>Forgot password?</span>}
-                
+             <span>Forgot password?</span>
                 </div>
              <div className={styles.dataContainer}>
                  <div className={styles.recoverPasswordContainer}>
                       <span className={styles.enterEmailSpan}>
                           Enter you email to receive password
                       </span>
-                      
                      <div className={styles.inputStyle}>
                          <input 
                             type="email" 

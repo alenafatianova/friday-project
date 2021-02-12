@@ -1,14 +1,14 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {  useParams } from 'react-router-dom'
+import { RequestStatusType } from '../redux/reducers/app-reducer'
 import { setNewPasswordThunk } from '../redux/reducers/forgot-password-reducer'
+import { AppRootStateType } from '../redux/store'
 import styles from '../styles/resetPassword.module.css'
 
-type resetPasswordProps = {
-    isLoggedIn: false
-}
 
-export const ResetPassword = React.memo((props: resetPasswordProps) => {
+
+export const ResetPassword = React.memo(() => {
 
     const [newPasswordInput, setNewPasswordInput] = useState<string>('')
     const [newPasswordEmpty, setnewPasswordEmpty] = useState<boolean>(false)
@@ -23,7 +23,8 @@ export const ResetPassword = React.memo((props: resetPasswordProps) => {
     const setPassword = useCallback((newPassword: string, resetPasswordToken: string) => { 
         dispatch(setNewPasswordThunk(newPassword, resetPasswordToken)) 
     },[])
-
+    
+    const isLoading = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 
     return (
         <div className={styles.mainContainer}>
@@ -31,7 +32,13 @@ export const ResetPassword = React.memo((props: resetPasswordProps) => {
                     <div className={styles.resetSpan}><span>Reset Password</span></div>
                     <div className={styles.dataContainer}>
                         <div className={styles.newPasswordContainer}>
-                             <label className={styles.newPasswordLabel}>Reset Password</label>
+                            <div>
+                            {
+                            isLoading === 'loading' 
+                            ? <span className={styles.requestMessage}>Loading...</span> 
+                            : <label className={styles.newPasswordLabel}>Reset Password</label>
+                            } 
+                            </div>
                             <div>
                                 <input 
                                     type="password" 
@@ -48,7 +55,7 @@ export const ResetPassword = React.memo((props: resetPasswordProps) => {
                     <div className={styles.buttonContainer}>
                         <button 
                             className={styles.buttonReset}
-                            disabled={!newPasswordInput} 
+                            disabled={isLoading === 'loading'} 
                             onClick={() => setPassword(newPasswordInput, resetPasswordToken)}
                             > Reset</button>
                     </div> 
