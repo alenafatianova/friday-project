@@ -24,7 +24,7 @@ export const forgotPasswordAPI = {
         try {
         const response = await instance.post<forgotPasswordResponseType>(`auth/forgot`, {email, from, message})
          if (response.status === 200) {
-            return alert(response.data.info)
+            return console.log(response.data.info)
          }
         }
         catch(error) {
@@ -35,11 +35,11 @@ export const forgotPasswordAPI = {
         try{
             const response = await instance.post<setNewPasswordResponseType>(`auth/set-new-password/`, {password, resetPasswordToken})
             if(response.status === 200) {
-                return alert(response.data.info);
+                return console.log(response.data.info);
             } 
         }
         catch(error) {
-            return alert(error);
+            return console.log(error);
         }
     }
 }

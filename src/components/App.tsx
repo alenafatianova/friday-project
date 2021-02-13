@@ -22,10 +22,10 @@ export const App = () => {
     const  dispatch =useDispatch()
 
 
-    useEffect(()=> {
+    // useEffect(()=> {
     
-        dispatch(initializeAppTC())
-    }, [])
+    //     dispatch(initializeAppTC())
+    // }, [])
     //
     // if (!isInitialized) {
     //     return <Redirect to={'/login'} />
