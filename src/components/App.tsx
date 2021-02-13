@@ -44,7 +44,7 @@ export const App = () => {
             <Route exact path={'/login'} render={() => <Login/>} />
             <Route exact path={'/signup'} render={() => <SignUp/>} />
             <Route exact path={'/profile'} render={() => <Profile/>}/>
-            <Route exact path={'/404'} render={() => <Page404/> }/>
+            <Route render={() => <Page404/> }/>
             <Route exact path={'/cards'} render={() => <Cards/>} />
             <Route exact path={'/forgotPassword'} render={() => <ForgotPassword/> }/>
             <Route exact path={'/resetPassword/:resetPasswordToken'} render={() => <ResetPassword/> }/>
