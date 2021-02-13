@@ -1,8 +1,7 @@
 import React, { ChangeEvent, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { RequestLoadingType, sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
-import { AppRootStateType } from '../redux/store'
+import { sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
 import styles from '../styles/forgotPassword.module.css'
 
 

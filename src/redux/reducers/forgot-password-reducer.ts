@@ -4,13 +4,11 @@ import { Dispatch } from "redux";
 export const initialForgotPasswordState: initialForgotPasswordStateType = {
     email: '',
     newPassword: '',
-    isRequestLoading: ''
 }
 
 export type initialForgotPasswordStateType = {
     email: string
     newPassword: string
-    isRequestLoading: RequestLoadingType
 }
 
 const SEND_EMAIL = 'friday-project/forgot-password-reducer/SEND_EMAIL';
@@ -32,31 +30,20 @@ export const forgotPasswordReducer = (state: initialForgotPasswordStateType = in
                 newPassword: action.newPassword
             }
         }
-        case IS_REQUEST_LOADING: {
-            return {
-                ...state,
-                isRequestLoading: action.isRequestLoading
-            }
-        }
         default: 
             return state;
     }
 }
 
 
-export type RequestLoadingType = 'Loading' | 'Succeeded' | ''
-
 
 //--- Action Creators ------
 export const sendEmail = (email: string) => ({type: SEND_EMAIL, email} as const)
 export const resetPassword = (newPassword: string) => ({type: RESET_PASSWORD, newPassword} as const)
-export const isRequestLoading = (isRequestLoading: RequestLoadingType) => ({type: IS_REQUEST_LOADING, isRequestLoading} as const)
-
 
 
 // ------ thunk for dispatching action creator ---------
 export const sendEmailThunk = (email: string) => (dispatch: Dispatch) => {
-    dispatch(isRequestLoading('Loading'))
     const from = "test-front-admin <alyena.fatianova@gmail.com>"
     const message = `<div style="background-color: lime; padding: 15px">
     password recovery link: 
@@ -73,5 +60,4 @@ export const setNewPasswordThunk = (newPassword: string, resetPasswordToken: str
 
 type actionsType =  | ReturnType<typeof sendEmail>
                     | ReturnType<typeof resetPassword>
-                    | ReturnType<typeof isRequestLoading>
 
