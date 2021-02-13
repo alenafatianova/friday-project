@@ -30,8 +30,16 @@ export const Header = () => {
            <div className={styles.linksContainer}>
            <div className={styles.login}>
                {isStatus === 'loading' ? <div >Loading...</div> : ''}
-               {isLoggedIn ?   <button disabled={isStatus === 'loading'} onClick={logoutHandler} >Log Out</button> :
-                <NavLink to={'/login'}> Login </NavLink>}
+               {
+               isLoggedIn 
+               ? <button 
+                    disabled={isStatus === 'loading'} 
+                    onClick={logoutHandler}
+                    className={styles.logoutButton}>
+                        Log Out
+                </button> 
+               : <NavLink to={'/login'}> Login </NavLink>
+               }
             </div>
             <div className={styles.signup}>
               <NavLink to={'/signup'}>Sign Up</NavLink>  
