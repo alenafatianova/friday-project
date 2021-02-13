@@ -4,11 +4,8 @@ import {  useParams } from 'react-router-dom'
 import { setNewPasswordThunk } from '../redux/reducers/forgot-password-reducer'
 import styles from '../styles/resetPassword.module.css'
 
-type resetPasswordProps = {
-    isLoggedIn: false
-}
 
-export const ResetPassword = React.memo((props: resetPasswordProps) => {
+export const ResetPassword = React.memo(() => {
 
     const [newPasswordInput, setNewPasswordInput] = useState<string>('')
     const [newPasswordEmpty, setnewPasswordEmpty] = useState<boolean>(false)

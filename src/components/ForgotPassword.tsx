@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { isRequestLoading, RequestLoadingType, sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
+import { RequestLoadingType, sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
 import { AppRootStateType } from '../redux/store'
 import styles from '../styles/forgotPassword.module.css'
 
@@ -15,12 +14,10 @@ export const ForgotPassword = React.memo(() => {
     const inputCheck = () => setInputEmpty(emailInput.length === 0)
 
     const dispatch = useDispatch()
-    const history = useHistory()
     const loading = useSelector<AppRootStateType, RequestLoadingType>(state => state.forgotPassword.isRequestLoading) 
 
     const onSendEmail = (email: string) => {
         dispatch(sendEmailThunk(email))
-        history.push('/resetPassword')
     }
    
   
