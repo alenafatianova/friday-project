@@ -6,6 +6,7 @@ export const  Navlink = () => {
     return (
         <div className={styles.mainDiv}>
             <div><NavLink to={'/profile'}>Profile</NavLink></div>
+            <div><NavLink to={'/cards'}>Cards </NavLink></div>
             {/* <div><NavLink to={'/404'} >404</NavLink></div> */}
             <div><NavLink to={'/forgotPassword'}>Forgot Password</NavLink></div>
             <div> <NavLink to={'/resetPassword'}>Reset Password</NavLink></div>
