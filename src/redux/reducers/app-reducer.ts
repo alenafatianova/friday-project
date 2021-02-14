@@ -2,7 +2,6 @@ import {Dispatch} from "redux";
 import {authAPI} from "../../api/Login-api";
 import {setIsLoggedInAC} from "../login-reducer";
 
-
 const initialState: InitialStateType = {
     status: 'idle',
     error: null,
@@ -39,12 +38,10 @@ export const setAppStatusAC = (status:  RequestStatusType) => ({ type: 'APP/SET-
 //tnunk
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-
     authAPI.PostMe().then(res => {
-      dispatch(setIsLoggedInAC(true));
-
-    }).catch((e)=> {
-       console.log(e)
+             dispatch(setIsLoggedInAC(true));
+      }).finally(()=> {
+        dispatch(setInitializedAC(true))
     })
 }
 

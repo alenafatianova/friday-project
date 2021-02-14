@@ -1,7 +1,6 @@
 import {LoginResponseType} from "../api/Login-api";
 
 const initialState: InitialStateType = {
-
         _id: '',
         email: '',
         name: '',
@@ -13,7 +12,6 @@ const initialState: InitialStateType = {
         verified: false,
         rememberMe: false,
         error: ''
-
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: SetUserActionsType): InitialStateType => {
@@ -28,7 +26,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: S
 
 
 export type InitialStateType = {
-
         _id: string,
         email: string,
         name: string,
@@ -40,7 +37,6 @@ export type InitialStateType = {
         verified: boolean,
         rememberMe: boolean,
         error?: string
-
 }
 
 export const setUserAC = (data: LoginResponseType) => ({type: 'SET-USER', data} as const)

@@ -3,12 +3,12 @@ import { NavLink} from 'react-router-dom'
 import styles from '../styles/header.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redux/store";
-import {logoutTC} from "../redux/login-reducer";
 import {RequestStatusType} from "../redux/reducers/app-reducer";
+import {logoutTC} from "../redux/login-reducer";
 
 
 export const Header = () => {
-    const isLoggedIn=useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+    const isLoggedIn=useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn )
     const isStatus=useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const  dispatch =useDispatch()
 
