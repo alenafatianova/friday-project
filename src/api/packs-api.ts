@@ -46,7 +46,7 @@ export const packsAPI = {
     getCardsPack(packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number, user_id?: string) {
         return instance.get<getPackResponseType>(`cards/pack?packName=${packName}&min=${min}&max=${max}&sortPacks=${sortPacks}&page=${page}&pageCount=${pageCount}&user_id=${user_id}`)
     },
-    chooseCardsPack(cardsPack: cardsPackType) {
+    createCardsPack(cardsPack: cardsPackType) {
         return instance.post('cards/packs', {cardsPack})
     },
     changeCardsPack(_id: string, name: string) {

@@ -14,6 +14,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redux/store";
 import {initializeAppTC} from "../redux/reducers/app-reducer";
 import { Cards } from './Cards';
+import { Packs } from './Packs';
 
 //---переделать routes 
 
@@ -45,6 +46,7 @@ export const App = () => {
             <Route exact path={'/signup'} render={() => <SignUp/>} />
             <Route exact path={'/profile'} render={() => <Profile/>}/>
             <Route exact path={'/cards'} render={() => <Cards/>} />
+            <Route exact path={'/packs'} render={() => <Packs/>} />
             <Route exact path={'/forgotPassword'} render={() => <ForgotPassword/> }/>
             <Route exact path={'/resetPassword/:resetPasswordToken'} render={() => <ResetPassword/> }/>
             <Route exact path={'/test'} component={ TestPage }/>
