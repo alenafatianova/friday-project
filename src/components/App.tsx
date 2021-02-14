@@ -1,5 +1,5 @@
 import styles from '../styles/App.module.css';
-import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
+import {  HashRouter, Redirect, Route, Router, Switch } from 'react-router-dom'
 import { Login } from './Login';
 import { SignUp } from './SignUp';
 import { Profile } from './Profile';
@@ -36,11 +36,12 @@ export const App = () => {
   return (
 
       <div className={styles.appStyles}>
-        <Switch>
-        <HashRouter>
+       
+      
             <div><Header/></div>
             <Navlink/>
             <div className={styles.navlinkStyle}> 
+            <Switch>
             <Route exact path={'/'} render={() => <Redirect from={'/'} to={'/profile'} />} />
             <Route exact path={'/login'} render={() => <Login/>} />
             <Route exact path={'/signup'} render={() => <SignUp/>} />
@@ -51,9 +52,10 @@ export const App = () => {
             <Route exact path={'/resetPassword/:resetPasswordToken'} render={() => <ResetPassword/> }/>
             <Route exact path={'/test'} component={ TestPage }/>
             <Route render={() => <Page404/> }/>
+            </Switch>
             </div>
-            </HashRouter>
-          </Switch>
+         
+          
       </div>
 
   )
