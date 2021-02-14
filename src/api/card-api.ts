@@ -46,7 +46,7 @@ type cardPostType = {
     answerVideo?: string
     type: string
 }
-
+//api
 export const cardAPI = {
     getCard(cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: string, page?: string, pageCount?: number) {
         return instance.get<getCardsResponseType>(`cards/card?cardAnswer=${cardAnswer}&cardQuestion=${cardQuestion}&cardsPack_id=${cardsPack_id}&min=${min}&max=${max}&sortPacks=${sortCards}&page=${page}&pageCount=${pageCount}`)
