@@ -5,6 +5,7 @@ import { packsType } from '../api/packs-api'
 import { addCardsThunk, getCardsPacks } from '../redux/reducers/cards-pack-reducer'
 import { AppRootStateType } from '../redux/store'
 import styles from '../styles/Packs.module.css'
+import { TableComponent } from './TableComponent'
 
 export const Packs = () => {
     const [loading, setLoading] = useState<boolean>(false)
@@ -25,10 +26,7 @@ export const Packs = () => {
             <div><input className={styles.packsCheckbox} type="checkbox"/> My Packs </div>
             <div className={styles.packsTitle}><span>Cards Pack</span></div>
          <div className={styles.tableContainer}>
-             <div>Name</div>
-             <div>Cards Count</div>
-             <div>Updated</div>
-             <div>URL</div>
+             <TableComponent/>
              <div>
                  <button className={styles.packsAddButton} onClick={() => addPackHandler}>Add</button>
              </div>
