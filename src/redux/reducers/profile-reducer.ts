@@ -1,4 +1,4 @@
-import {LoginResponseType} from "../api/Login-api";
+import {LoginResponseType} from "../../api/Login-api";
 
 const initialState: InitialStateType = {
 

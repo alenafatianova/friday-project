@@ -34,10 +34,7 @@ export const App = () => {
     // }
 
   return (
-
       <div className={styles.appStyles}>
-       
-      
             <div><Header/></div>
             <Navlink/>
             <div className={styles.navlinkStyle}> 
@@ -53,9 +50,7 @@ export const App = () => {
             <Route exact path={'/test'} component={ TestPage }/>
             <Route render={() => <Page404/> }/>
             </Switch>
-            </div>
-         
-          
+            </div> 
       </div>
 
   )

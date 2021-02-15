@@ -3,7 +3,7 @@ import { NavLink} from 'react-router-dom'
 import styles from '../styles/header.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redux/store";
-import {logoutTC} from "../redux/login-reducer";
+import {logoutTC} from "../redux/reducers/login-reducer";
 import {RequestStatusType} from "../redux/reducers/app-reducer";
 
 
