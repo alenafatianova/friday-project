@@ -33,7 +33,7 @@ type getCardsResponseType = {
     pageCount: number
     packUserId: string
 }
-type cardPostType = {
+export type cardPostType = {
     cardsPack_id: string
     question: string
     answer: string
