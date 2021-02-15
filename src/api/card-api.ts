@@ -9,77 +9,79 @@ const instance = axios.create({
 //     withCredentials: true
 // })
 
-export type packsType = {
-    _id: string
-    user_id: string
-    name: string
-    path: string
-    cardsCount: number
-    grade: number
-    shots: number
+export type cardType = {
+   answer: string
+    question: string
+    cardsPack_id: string
+    grade: string
     rating: number
+    shots: number
     type: string
+    user_id: string
     created: string
     updated: string
     __v: number
+    _id: string
 }
-type getPackResponseType = {
-    cardPacks: packsType[]
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
+type getCardResponseType = {
+    card: cardType[]
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
     page: number
     pageCount: number
+    packUserId:string
 }
 
-type addCardsPackResponseType = {
-    newCardsPack: {}
+type addCardResponseType = {
+    newCard: {}
 }
-type updatedCardsPackresponseType = {
-    updatedCardsPack: {}
+type updatedCardResponseType = {
+    updatedCard: {}
 }
-type deletedCardsPackResponseType = {
-    deletedCardsPack: {}
+type deletedCardResponseType = {
+    deletedCard: {}
 }
-export const packsAPI = {
-    async getCardsPack() {
+export const cardAPI = {
+    async getCard() {
         try {
-            const response = await instance.get<getPackResponseType>(`cards/pack`)
+            const response = await instance.get<getCardResponseType>(`cards/card`)
             if(response.status === 200) {
-                return alert(response.data.cardPacks)
+                return alert(response.data.card)
             }
         }
         catch(err) {
             return alert(err);
         }
     },
-    async addCardsPack() {
+    async addCard() {
         try {
-            const response = await instance.post<addCardsPackResponseType>('cards/packs')
+            const response = await instance.post<addCardResponseType>('cards/card')
             if(response.status === 200) {
-                return alert(response.data.newCardsPack)
+                return alert(response.data.newCard)
             }
         }
         catch(err) {
             return alert(err);
         }
     },
-    async changeCardsPack(_id: string, name: string) {
+    async changeCard(_id: string, question?: string, comments?: string) {
         try {
-            const response = await instance.put<updatedCardsPackresponseType>('cards/pack', {cardsPack: {_id, name}})
+            const response = await instance.put<updatedCardResponseType>
+            ('cards/card', {updatedCard: {_id, question, comments}})
             if(response.status === 200) {
-                return alert(response.data.updatedCardsPack)
+                return alert(response.data.updatedCard)
             }
         }
         catch(err) {
             return alert(err);
         }
     },
-    async deleteCardsPack(id: string) {
+    async deleteCard(id: string) {
         try {
-            const response = await instance.delete<deletedCardsPackResponseType>(`cards/pack?${id}`)
+            const response = await instance.delete<deletedCardResponseType>(`cards/card?${id}`)
             if(response.status === 200) {
-                return alert(response.data.deletedCardsPack)
+                return alert(response.data.deletedCard)
             }
         }
         catch(err) {

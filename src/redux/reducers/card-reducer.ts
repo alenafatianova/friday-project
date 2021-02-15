@@ -1,72 +1,69 @@
-import { packsAPI } from './../../api/packs-api';
 import { Dispatch } from 'redux';
-import React from 'react'
 import { packsType } from '../../api/packs-api'
+import {cardAPI, cardType} from "../../api/card-api";
 
 
-export const initialPacksState = {
-    packs: [],
-    cardsPackTotalCount: 14,
-    maxCardsCount: 4,
-    minCardsCount: 0,
-    page: 0,
-    pageCount: 4
+export const initialCardState = {
+    cards: [],
+    cardsTotalCount: 3,
+    maxGrade: 4,
+    minGrade: 2,
+    page: 1,
+    pageCount: 4,
+    packUserId: ''
 }
 
-export type initialPacksStateType = {
-    packs: CardsPackType[]
-    cardsPackTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
+export type initialCardStateType = {
+    cards: cardType[]
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
     page: number
     pageCount: number
+    packUserId:string
 }
 
-export type CardsPackType = {
-    _id: string
-    user_id: string
-    name: string
-    path: string
-    cardsCount: number
-    grade: number
-    shots: number
+export type CardsType = {
+    answer: string
+    question: string
+    cardsPack_id: string
+    grade: string
     rating: number
+    shots: number
     type: string
+    user_id: string
     created: string
     updated: string
     __v: number
+    _id: string
 }
 
 
-const GET_PACKS = 'friday-project/packs-reducer/GET_PACKS'
-const ADD_PACK = 'friday-project/packs-reducer/ADD_PACK'
-const CHANGE_PACK = 'friday-project/packs-reducer/CHANGE_PACK'
-const DELETE_PACK = 'friday-project/packs-reducer/DELETE_PACK'
 
-
-export const PacksReducer = (state: initialPacksStateType = initialPacksState, action: cardsPacksActiontype) => {
+export const CardReducer = (state:  initialCardStateType = initialCardState, action: cardActiontype) => {
     switch(action.type) {
-        case GET_PACKS: {
+        case 'GET_CARD': {
             return {
-                ...state.packs,
+                ...state.cards,
             }
         }
-        case ADD_PACK: {
+        case 'ADD_CARD': {
             return {
                 ...state,
-                packs: [...state.packs, action.pack]
+                cards: [...state.cards, action.card]
             }
         }
-        case CHANGE_PACK: {
+        case "CHANGE_CARD": {
             return {
                 ...state, 
-                packs: state.packs.map(pack => pack._id === action._id ? {...pack, name: action.name} : pack)
+                cards: state.cards.map(card => card._id === action._id ?
+                    {...card, question: action.question, comments: action.comments} : card)
             }
         }
-        case DELETE_PACK: {
+        case "DELETE_CARD": {
             return {
                 ...state,
-                packs: state.packs.filter(pack => pack._id != action._id)
+                cards: state.cards.filter(card=> card._id != action._id)
             }
         }
         default: 
@@ -76,34 +73,35 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
 
 
 //---- actions
-export const getCardsPacks = () => ({type: GET_PACKS} as const)
-export const addCardsPack = (pack: packsType) => ({type: ADD_PACK, pack} as const)
-export const changeCardsPack = (_id: string, name: string) => ({type: CHANGE_PACK, _id, name} as const)
-export const deleteCardsPack = (_id: string) => ({type: DELETE_PACK, _id} as const)
+export const getCard = () => ({type:'GET_CARD'} as const)
+export const addCard = (card: cardType) => ({type: 'ADD_CARD', card} as const)
+export const changeCard = (_id: string, question?: string, comments?: string) =>
+    ({type:'CHANGE_CARD', _id,  question, comments} as const)
+export const deleteCard = (_id: string) => ({type: 'DELETE_CARD', _id} as const)
 
 //---- thunks
-export const getPacksThunk = () => (dispatch: Dispatch) => {
-    packsAPI.getCardsPack();
-    dispatch(getCardsPacks())
+export const getCardTC = () => (dispatch: Dispatch) => {
+   cardAPI.getCard();
+    dispatch(getCard())
 }
-export const addCardsThunk = (pack: packsType) => (dispatch: Dispatch) => {
-    packsAPI.addCardsPack();
-    dispatch(addCardsPack(pack))
-    dispatch(getCardsPacks())
+export const addCardTC = (card: cardType) => (dispatch: Dispatch) => {
+    cardAPI.addCard();
+    dispatch(addCard(card))
+    dispatch(getCard())
 }
-export const updateCardsThunk = (_id: string, name: string) => (dispatch: Dispatch) => {
-    packsAPI.changeCardsPack(_id, name)
-    dispatch(changeCardsPack(_id, name))
-    dispatch(getCardsPacks())
+export const updateCardTC = (_id: string, question?: string, comments?: string) => (dispatch: Dispatch) => {
+    cardAPI.changeCard(_id, question, comments)
+    dispatch(changeCard(_id,  question, comments))
+    dispatch(getCard())
 }
-export const deleteCardsThunk = (_id: string) => (dispatch: Dispatch) => {
-    packsAPI.deleteCardsPack(_id)
-    dispatch(deleteCardsPack(_id))
-    dispatch(getCardsPacks())
+export const deleteCardTC = (_id: string) => (dispatch: Dispatch) => {
+    cardAPI.deleteCard(_id)
+    dispatch(deleteCard(_id))
+    dispatch(getCard())
 }
 //----action types
-export type cardsPacksActiontype = 
-    | ReturnType<typeof getCardsPacks> 
-    | ReturnType<typeof addCardsPack>
-    | ReturnType<typeof changeCardsPack>
-    | ReturnType<typeof deleteCardsPack>
+export type cardActiontype =
+    | ReturnType<typeof getCard>
+    | ReturnType<typeof addCard>
+    | ReturnType<typeof changeCard>
+    | ReturnType<typeof deleteCard>
