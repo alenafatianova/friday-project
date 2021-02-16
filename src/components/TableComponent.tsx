@@ -31,7 +31,8 @@ export const TableComponent = () => {
         {id: 'name', label: 'Name', disableSorting: true},
         {id: 'cardsCount', label: 'Cards Count'},
         {id: 'updated', label: 'Updated', disableSorting: true},
-        {id: 'url', label: 'URL', disableSorting: true}
+        {id: 'url', label: 'URL', disableSorting: true},
+        {id: 'actions', label: 'Actions',  disableSorting: true}
     ])
 
    
@@ -138,7 +139,6 @@ export const TableComponent = () => {
                                    </TableSortLabel>}
                                 </TableCell>) 
                            }
-                            <TableCell></TableCell>
                             <TableCell></TableCell> 
                        </TableRow>
                    </TableHead>
