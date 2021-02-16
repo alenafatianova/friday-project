@@ -28,10 +28,10 @@ export const TableComponent = () => {
 
     //----- initial state for table headers ------
     const [headCells, setHeadCells] = useState([
-        {id: 'name', label: 'Name'},
+        {id: 'name', label: 'Name', disableSorting: true},
         {id: 'cardsCount', label: 'Cards Count'},
-        {id: 'updated', label: 'Updated'},
-        {id: 'url', label: 'URL'}
+        {id: 'updated', label: 'Updated', disableSorting: true},
+        {id: 'url', label: 'URL', disableSorting: true}
     ])
 
    
@@ -126,13 +126,16 @@ export const TableComponent = () => {
                        <TableRow>
                            {
                                headCells.map(headcell => 
-                               <TableCell key={headcell.id}>
+                               <TableCell 
+                               key={headcell.id}
+                               sortDirection={orderBy === headcell.id ? order : false}
+                               >{headcell.disableSorting ? headcell.label : 
                                    <TableSortLabel 
                                    active={orderBy === headcell.id}
                                    direction={orderBy === headcell.id ? order : 'asc'}
                                    onClick={() => handleSorting(headcell.id)}>
                                    {headcell.label} 
-                                   </TableSortLabel>
+                                   </TableSortLabel>}
                                 </TableCell>) 
                            }
                             <TableCell></TableCell>

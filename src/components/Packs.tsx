@@ -6,7 +6,7 @@ import { addCardsThunk, getCardsPacks, getPacksThunk } from '../redux/reducers/c
 import { AppRootStateType } from '../redux/store'
 import styles from '../styles/Packs.module.css'
 import { TableComponent } from './TableComponent'
-
+import Toolbar from '@material-ui/core/Toolbar'
 
 
 export const Packs = () => {
@@ -37,7 +37,9 @@ export const Packs = () => {
                 <button className={styles.packsAddButton} onClick={() => addPackHandler}>Add</button>
                 </div>
          <div className={styles.tableContainer}>
-             
+             <Toolbar>
+                 
+             </Toolbar>
              <TableComponent />
              
          </div>
