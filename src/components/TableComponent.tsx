@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
@@ -9,8 +9,17 @@ import TableCell from '@material-ui/core/TableCell'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableFooter from '@material-ui/core/TableFooter'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
+import { getPacksThunk } from '../redux/reducers/cards-pack-reducer'
+import { useDispatch } from 'react-redux'
 
 export const TableComponent = () => {
+
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        const packs = getPacksThunk()
+        dispatch(packs)
+    }, [])
     
     //---- initial state for table rows ------
     const [rows, setRows] = useState([

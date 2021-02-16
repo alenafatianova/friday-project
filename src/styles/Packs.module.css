@@ -8,22 +8,15 @@
     margin-bottom: 30px;
     margin-left: 30px;
 }
-
-/* .tableContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    height: 10%;
-
-    align-items: center;
-} */
 .packsAddButton {
     width: 100px;
     height: 30px;
-    border-radius: 20px;
+    border-radius: 5px;
     border: none;
-    background-color: rgb(255, 227, 68);
+    background-color: rgb(253, 242, 181);
     font-family: 'Times New Roman', Times, serif;  
     font-size: 16px;
     color: rgb(43, 40, 40);
+    margin-top: 15px;
+    margin-left: 50px;
 }
