@@ -12,7 +12,6 @@ export const initialPacksState = {
     page: 0,
     pageCount: 4
 }
-
 export type initialPacksStateType = {
     packs: CardsPackType[]
     cardsPackTotalCount: number
