@@ -1,11 +1,12 @@
 import { packsAPI } from './../../api/packs-api';
 import { Dispatch } from 'redux';
 import React from 'react'
-import { packsType } from '../../api/packs-api'
+
+
 
 
 export const initialPacksState = {
-    packs: [],
+    cardsPack: [],
     cardsPackTotalCount: 14,
     maxCardsCount: 4,
     minCardsCount: 0,
@@ -13,12 +14,12 @@ export const initialPacksState = {
     pageCount: 4
 }
 export type initialPacksStateType = {
-    packs: CardsPackType[]
+    cardsPack: CardsPackType[]
     cardsPackTotalCount: number
     maxCardsCount: number
     minCardsCount: number
     page: number
-    pageCount: number
+    pageCount: number 
 }
 
 export type CardsPackType = {
@@ -47,25 +48,25 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
     switch(action.type) {
         case GET_PACKS: {
             return {
-                ...state.packs,
+                ...state.cardsPack,
             }
         }
         case ADD_PACK: {
             return {
                 ...state,
-                packs: [...state.packs, action.pack]
+                packs: [...state.cardsPack, action.cardsPack]
             }
         }
         case CHANGE_PACK: {
             return {
                 ...state, 
-                packs: state.packs.map(pack => pack._id === action._id ? {...pack, name: action.name} : pack)
+                packs: state.cardsPack.map(pack => pack._id === action._id ? {...pack, name: action.name} : pack)
             }
         }
         case DELETE_PACK: {
             return {
                 ...state,
-                packs: state.packs.filter(pack => pack._id != action._id)
+                packs: state.cardsPack.filter(pack => pack._id != action._id)
             }
         }
         default: 
@@ -76,7 +77,7 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
 
 //---- actions
 export const getCardsPacks = () => ({type: GET_PACKS} as const)
-export const addCardsPack = (pack: packsType) => ({type: ADD_PACK, pack} as const)
+export const addCardsPack = (cardsPack: CardsPackType) => ({type: ADD_PACK, cardsPack} as const)
 export const changeCardsPack = (_id: string, name: string) => ({type: CHANGE_PACK, _id, name} as const)
 export const deleteCardsPack = (_id: string) => ({type: DELETE_PACK, _id} as const)
 
@@ -85,9 +86,9 @@ export const getPacksThunk = () => (dispatch: Dispatch) => {
     packsAPI.getCardsPack();
     dispatch(getCardsPacks())
 }
-export const addCardsThunk = (pack: packsType) => (dispatch: Dispatch) => {
-    packsAPI.addCardsPack();
-    dispatch(addCardsPack(pack))
+export const addCardsThunk = (cardsPack: CardsPackType) => (dispatch: Dispatch) => {
+    packsAPI.addCardsPack(cardsPack);
+    dispatch(addCardsPack(cardsPack))
     dispatch(getCardsPacks())
 }
 export const updateCardsThunk = (_id: string, name: string) => (dispatch: Dispatch) => {

@@ -1,7 +1,7 @@
 import {Dispatch} from 'redux'
 import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {authAPI, LoginRequestType} from "../../api/Login-api";
-import {setUserAC, SetUserActionsType} from "./profile-reducer";
+import {setUserAC, SetUserActionsType} from "../reducers/profile-reducer";
 
 const initialState = {
     isLoggedIn: false

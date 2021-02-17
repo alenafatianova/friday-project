@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { packsType } from '../components/TableComponent'
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -9,20 +10,7 @@ const instance = axios.create({
 //     withCredentials: true
 // })
 
-export type packsType = {
-    _id: string
-    user_id: string 
-    name: string
-    path: string
-    cardsCount: number
-    grade: number
-    shots: number
-    rating: number
-    type: string
-    created: string
-    updated: string
-    __v: number
-}
+
 type getPackResponseType = {
     cardPacks: packsType[]
     cardPacksTotalCount: number
@@ -46,16 +34,16 @@ export const packsAPI = {
         try {
             const response = await instance.get<getPackResponseType>(`cards/pack`)
             if(response.status === 200) {
-                return response.data.cardPacks;
+                return response.data;
             }
         }
        catch(err) {
            return alert(err);
        }
     },
-    async addCardsPack() {
+    async addCardsPack(cardsPack: packsType) {
         try {
-            const response = await instance.post<addCardsPackResponseType>('cards/packs')
+            const response = await instance.post<addCardsPackResponseType>('cards/packs', {cardsPack})
             if(response.status === 200) {
                 return alert(response.data.newCardsPack)
             }

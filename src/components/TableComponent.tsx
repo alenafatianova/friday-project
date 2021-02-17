@@ -9,30 +9,23 @@ import TableCell from '@material-ui/core/TableCell'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableFooter from '@material-ui/core/TableFooter'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
-import { getPacksThunk } from '../redux/reducers/cards-pack-reducer'
-import { useDispatch } from 'react-redux'
+import { CardsPackType, getPacksThunk } from '../redux/reducers/cards-pack-reducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { packsAPI } from './../api/packs-api';
+import { AppRootStateType } from '../redux/store'
+
 
 export const TableComponent = () => {
 
     const dispatch = useDispatch();
     
     useEffect(() => {
-        const packs = getPacksThunk()
-        dispatch(packs)
+        //const packs = packsAPI.getCardsPack();
+        dispatch(getPacksThunk())
     }, [])
     
-    //---- initial state for table rows ------
-    const [rows, setRows] = useState([
-        {name: 'first one', cardsCount: 25, updated: '2020-05-20', url: ''},
-        {name: 'second one', cardsCount: 5, updated: '2020-06-20', url: ''},
-        {name: 'third one', cardsCount: 2, updated: '2020-03-23', url: ''},
-        {name: 'no name', cardsCount: 3, updated: '2020-05-16', url: ''},
-        {name: 'no name', cardsCount: 3, updated: '2020-05-16', url: ''},
-        {name: 'no name', cardsCount: 3, updated: '2020-05-16', url: ''},
-        {name: 'no name', cardsCount: 3, updated: '2020-05-16', url: ''},
-        {name: 'no name', cardsCount: 3, updated: '2020-05-16', url: ''},
-        {name: 'no name', cardsCount: 3, updated: '2020-05-16', url: ''},
-    ])
+    const packs = useSelector<AppRootStateType, CardsPackType[]>(state => state.packs)
+    const [rows, setRows] = useState(packs)
 
 
     //----- initial state for table headers ------
@@ -156,10 +149,10 @@ export const TableComponent = () => {
                             <TableCell key='name'>{row.name}</TableCell>
                             <TableCell key='cards-count'>{row.cardsCount}</TableCell>
                             <TableCell key='updated'>{row.updated}</TableCell>
-                            <TableCell key='updated'>{row.url}</TableCell>
+                            <TableCell key='url'>URL</TableCell>
                             <TableCell><button>Update</button></TableCell>
                             <TableCell><button>Delete</button></TableCell>
-                        </TableRow>))}
+                        </TableRow>))} 
                    </TableBody>
                </Table>
            </TableContainer>
