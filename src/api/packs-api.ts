@@ -11,7 +11,7 @@ const instance = axios.create({
 
 export type packsType = {
     _id: string
-    user_id: string
+    user_id: string 
     name: string
     path: string
     cardsCount: number
@@ -46,7 +46,7 @@ export const packsAPI = {
         try {
             const response = await instance.get<getPackResponseType>(`cards/pack`)
             if(response.status === 200) {
-                return alert(response.data.cardPacks)
+                return response.data.cardPacks;
             }
         }
        catch(err) {

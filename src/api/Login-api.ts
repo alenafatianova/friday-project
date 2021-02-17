@@ -19,7 +19,7 @@ export const authAPI  = {
     DeleteMe() {
         return instance.delete<{info: string, error: string}>('auth/me', {});
     }
-}
+} 
 
 // types
 

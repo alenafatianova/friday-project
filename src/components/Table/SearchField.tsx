@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux'
 import { packsType } from '../../api/packs-api'
 import { addCardsThunk } from '../../redux/reducers/cards-pack-reducer'
 import styles from '../../styles/Packs.module.css'
- 
+import FormControl from '@material-ui/core/FormControl'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Search from '@material-ui/icons/Search' 
 
- 
-export const SearchField = () => {
+
+export const SearchField = ({...other}) => {
     
     const  dispatch = useDispatch()
 
@@ -19,9 +21,18 @@ export const SearchField = () => {
     return (
         <div>
             <Toolbar>
-                <form>
-                    <TextField id="standard-basic" label="Add new pack"/>
-                </form>
+                <FormControl>
+                    <TextField 
+                       id='searchingInput'
+                       label='Search for the pack'
+                       InputProps={{
+                           startAdornment: (
+                               <InputAdornment position="start">
+                               <Search/>
+                               </InputAdornment>
+                           ),
+                       }}/>
+                </FormControl>
                 <button className={styles.packsAddButton} onClick={() => addPackHandler}>Add</button>
              </Toolbar> 
         </div>
