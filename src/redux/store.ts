@@ -1,6 +1,7 @@
 import { PacksReducer } from './reducers/cards-pack-reducer';
 import { appReducer } from './reducers/app-reducer';
 import {applyMiddleware, combineReducers, createStore} from 'redux'
+import {composeWithDevTools} from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 import { loginReducer} from "./reducers/login-reducer";
 import {profileReducer} from "../redux/reducers/profile-reducer";
@@ -11,9 +12,12 @@ const rootReducer = combineReducers({
     login:  loginReducer,
     profile: profileReducer,
     forgotPassword: forgotPasswordReducer,
-    cardsPack: PacksReducer
+    packs: PacksReducer
 })
 // непосредственно создаём store
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+export const store = createStore(
+    rootReducer, 
+    composeWithDevTools( applyMiddleware(thunkMiddleware))
+   )
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import Toolbar from '@material-ui/core/Toolbar'
 import TextField from '@material-ui/core/TextField'
 import { useDispatch } from 'react-redux'
@@ -11,13 +11,13 @@ import {makeStyles} from '@material-ui/core'
 import { CardsPackType } from '../../api/packs-api'
 
 
-export const SearchField = () => {
+export const SearchField = React.memo(() => {
     
     const  dispatch = useDispatch()
 
-    const addPackHandler = (cardsPack: CardsPackType) => {
+    const addPackHandler = useCallback((cardsPack: CardsPackType) => {
         dispatch(addCardsThunk(cardsPack))
-    }
+    }, [])
 
 
     return (
@@ -39,4 +39,4 @@ export const SearchField = () => {
              </Toolbar> 
         </div>
     )
-}
+})

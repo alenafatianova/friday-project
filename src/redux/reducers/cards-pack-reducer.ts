@@ -51,36 +51,37 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
 
 
 //---- actions
-export const getCardsPacks = (packs: CardsPackType[]) => ({type: GET_PACKS, packs} as const)
-export const addCardsPack = (cardsPack: CardsPackType) => ({type: ADD_PACK, cardsPack} as const)
-export const changeCardsPack = (_id: string, name: string) => ({type: CHANGE_PACK, _id, name} as const)
-export const deleteCardsPack = (_id: string) => ({type: DELETE_PACK, _id} as const)
+export const getCardsPacksAC = (packs: CardsPackType[]) => ({type: GET_PACKS, packs} as const)
+export const addCardsPackAC = (cardsPack: CardsPackType) => ({type: ADD_PACK, cardsPack} as const)
+export const changeCardsPackAC = (_id: string, name: string) => ({type: CHANGE_PACK, _id, name} as const)
+export const deleteCardsPackAC = (_id: string) => ({type: DELETE_PACK, _id} as const)
 
 //---- thunks
 export const getPacksThunk = () => async (dispatch: Dispatch) => {
-    await packsAPI.getCardsPack();
-    dispatch(getCardsPacks([]))
+    const packs = await packsAPI.getCardsPack()
+    .then(res => res.data.cardPacks)
+    dispatch(getCardsPacksAC(packs))
 }
 export const addCardsThunk = (cardsPack: CardsPackType) => async(dispatch: Dispatch) => {
-    const packs = await packsAPI.addCardsPack(cardsPack);
-    dispatch(addCardsPack(cardsPack))
+    await packsAPI.addCardsPack(cardsPack);
+    dispatch(addCardsPackAC(cardsPack))
     //dispatch(getCardsPacks(packs))
 }
 export const updateCardsThunk = (_id: string, name: string) => (dispatch: Dispatch) => {
     packsAPI.changeCardsPack(_id, name)
-    dispatch(changeCardsPack(_id, name))
+    dispatch(changeCardsPackAC(_id, name))
     //dispatch(getCardsPacks())
 }
 export const deleteCardsThunk = (_id: string) => (dispatch: Dispatch) => {
     packsAPI.deleteCardsPack(_id)
-    dispatch(deleteCardsPack(_id))
+    dispatch(deleteCardsPackAC(_id))
     //dispatch(getCardsPacks())
 }
 
 
 //----action types
 export type cardsPacksActiontype = 
-    | ReturnType<typeof getCardsPacks> 
-    | ReturnType<typeof addCardsPack>
-    | ReturnType<typeof changeCardsPack>
-    | ReturnType<typeof deleteCardsPack>
+    | ReturnType<typeof getCardsPacksAC> 
+    | ReturnType<typeof addCardsPackAC>
+    | ReturnType<typeof changeCardsPackAC>
+    | ReturnType<typeof deleteCardsPackAC>

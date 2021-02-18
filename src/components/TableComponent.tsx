@@ -9,10 +9,11 @@ import TableCell from '@material-ui/core/TableCell'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableFooter from '@material-ui/core/TableFooter'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
-import {getPacksThunk, initialPacksStateType } from '../redux/reducers/cards-pack-reducer'
+import {getPacksThunk } from '../redux/reducers/cards-pack-reducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { CardsPackType, packsAPI } from './../api/packs-api';
 import { AppRootStateType } from '../redux/store'
+
 
 
 export const TableComponent = () => {
@@ -20,14 +21,12 @@ export const TableComponent = () => {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        //const packs = packsAPI.getCardsPack();
         dispatch(getPacksThunk())
     }, [])
     
-    const cardsPacks = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.cardsPack.cardsPack)
-    console.log(cardsPacks)
-    
-    const [rows, setRows] = useState(cardsPacks)
+    const rows = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.packs.cardsPack)
+   
+    //const [rows, setRows] = useState(cardsPacks)
 
 
     //----- initial state for table headers ------
