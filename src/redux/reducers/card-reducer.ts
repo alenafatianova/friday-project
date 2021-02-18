@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux';
-import { packsType } from '../../api/packs-api'
 import {cardAPI, cardType} from "../../api/card-api";
 
 
@@ -14,7 +13,7 @@ export const initialCardState = {
 }
 
 export type initialCardStateType = {
-    cards: cardType[]
+    cards: CardType[]
     cardsTotalCount: number
     maxGrade: number
     minGrade: number
@@ -23,7 +22,7 @@ export type initialCardStateType = {
     packUserId:string
 }
 
-export type CardsType = {
+export type CardType = {
     answer: string
     question: string
     cardsPack_id: string

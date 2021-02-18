@@ -19,7 +19,6 @@ export const Profile = () => {
             <div>Avatar: {avatar}</div>
             <div>PublicCardPacksCount: {publicCardPacksCount}</div>
 
-
         </div>
     )
 }

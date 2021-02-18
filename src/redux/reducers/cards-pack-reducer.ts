@@ -1,7 +1,6 @@
-import { packsAPI } from './../../api/packs-api';
+
 import { Dispatch } from 'redux';
-import React from 'react'
-import { packsType } from '../../api/packs-api'
+import {packsAPI, packsType} from '../../api/packs-api'
 
 
 export const initialPacksState = {
