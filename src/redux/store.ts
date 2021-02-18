@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
     login:  loginReducer,
     profile: profileReducer,
     forgotPassword: forgotPasswordReducer,
-    packs: PacksReducer,
+    cardsPack: PacksReducer
 })
 // непосредственно создаём store
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));

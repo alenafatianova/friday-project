@@ -16,8 +16,6 @@ import {initializeAppTC} from "../redux/reducers/app-reducer";
 import { Cards } from './Cards';
 import { Packs } from './Packs';
 
-//---переделать routes 
-
 
 export const App = () => {
     const isInitialized=useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
