@@ -4,11 +4,11 @@ import React from 'react'
 
 
 export const initialPacksState = {
-    cardsPack: [],
+    cardPacks: [],
   
 }
 export type initialPacksStateType = {
-    cardsPack: CardsPackType[]
+    cardPacks: CardsPackType[]
 }
 
 
@@ -35,13 +35,13 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
         case CHANGE_PACK: {
             return {
                 ...state, 
-                cardsPack: state.cardsPack.map(pack => pack._id === action._id ? {...pack, name: action.name} : pack)
+                cardPacks: state.cardPacks.map(pack => pack._id === action._id ? {...pack, name: action.name} : pack)
             }
         }
         case DELETE_PACK: {
             return {
                 ...state,
-                cardsPack: state.cardsPack.filter(pack => pack._id != action._id)
+                cardPacks: state.cardPacks.filter(pack => pack._id != action._id)
             }
         }
         default: 
@@ -80,17 +80,25 @@ export const updateCardsThunk = (_id: string, name: string) => async(dispatch: D
     // dispatch(changeCardsPackAC(_id, name))
     // //dispatch(getCardsPacksAC(packs))
     await packsAPI.changeCardsPack(_id, name)
-        .then(res => {
-            dispatch(changeCardsPackAC(res.data))
+        .then(res => res.data.updatedCardsPack)
+        .then(updatedCardsPack => {
+            dispatch(changeCardsPackAC(updatedCardsPack._id, updatedCardsPack.name))
             getPacksThunk(1, 20)
         })
+        .catch(err => alert(err))
     
 }
 export const deleteCardsThunk = (_id: string) => async(dispatch: Dispatch) => {
-    const packs = await packsAPI.deleteCardsPack(_id)
-    .then(res => res.data.deletedCardsPack)
-    dispatch(deleteCardsPackAC(_id))
-    //dispatch(getCardsPacksAC(packs))
+    // const packs = await packsAPI.deleteCardsPack(_id)
+    // .then(res => res.data.deletedCardsPack)
+    // dispatch(deleteCardsPackAC(_id))
+    // //dispatch(getCardsPacksAC(packs))
+    await packsAPI.deleteCardsPack(_id)
+        .then(res => {
+            deleteCardsPackAC(res.data.deletedCardsPack._id)
+            getPacksThunk(1, 20)
+        })
+       .catch(err => alert(err)) 
 }
 
 

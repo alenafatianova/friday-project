@@ -24,7 +24,7 @@ export const TableComponent = () => {
         dispatch(getPacksThunk(1, 20))
     }, [])
     
-    const rows = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.packs.cardsPack)
+    const rows = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.packs.cardPacks)
    
     //const [rows, setRows] = useState(cardsPacks)
 

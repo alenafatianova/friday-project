@@ -21,17 +21,17 @@ export type getPackResponseType = {
     pageCount: number
     cardPacksTotalCount: number
 }
-type addCardsPackResponseType = {
+export type addCardsPackResponseType = {
     newCardsPack: CardsPackType
 }
-type updatedCardsPackresponseType = {
+export type updatedCardsPackresponseType = {
     updatedCardsPack: CardsPackType
 }
-type deletedCardsPackResponseType = {
-    deletedCardsPack: {}
+export type deletedCardsPackResponseType = {
+    deletedCardsPack: CardsPackType
 }
-export const packsAPI = {
 
+export const packsAPI = {
     getCardsPack(page: number, pageCount: number) {
         return instance.get<getPackResponseType>(`cards/pack`, {params: {page, pageCount}})
     },
@@ -42,6 +42,6 @@ export const packsAPI = {
         return instance.put<updatedCardsPackresponseType>('cards/pack', {cardsPack: {_id, name}})
     },
     deleteCardsPack(id: string) {
-      return instance.delete<deletedCardsPackResponseType>(`cards/pack?${id}`)
+      return instance.delete<deletedCardsPackResponseType>(`cards/pack`, {params: {id}})
     }
 }
