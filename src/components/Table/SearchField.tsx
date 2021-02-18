@@ -34,8 +34,12 @@ export const SearchField = React.memo(() => {
                                </InputAdornment>
                            ),
                        }}/>
+                       
                 </FormControl>
-                <button className={styles.packsAddButton} onClick={() => addPackHandler}>Add</button>
+                <button className={styles.searchButton}>Search</button>
+                <div className={styles.packsAddButtonDiv}>
+                    <button className={styles.packsAddButton} onClick={() => addPackHandler}>Add</button>
+                </div>
              </Toolbar> 
         </div>
     )
