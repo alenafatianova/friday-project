@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { AppRootStateType } from '../redux/store'
 import styles from '../styles/Packs.module.css'
-import { TableComponent } from './TableComponent'
+import { TableComponent } from './Table/TableComponent'
 import { SearchField } from './Table/SearchField'
 
 export const Packs = () => {

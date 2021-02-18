@@ -1,33 +1,47 @@
-import React, { useCallback } from 'react'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import Toolbar from '@material-ui/core/Toolbar'
 import TextField from '@material-ui/core/TextField'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addCardsThunk } from '../../redux/reducers/cards-pack-reducer'
 import styles from '../../styles/Packs.module.css'
 import FormControl from '@material-ui/core/FormControl'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Search from '@material-ui/icons/Search' 
-import {makeStyles} from '@material-ui/core'
+import {makeStyles, createStyles, Theme} from '@material-ui/core/styles'
 import { CardsPackType } from '../../api/packs-api'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import { AppRootStateType } from '../../redux/store'
+
+
+
+    
 
 
 export const SearchField = React.memo(() => {
-    
-    const  dispatch = useDispatch()
 
-    const addPackHandler = useCallback((cardsPack: CardsPackType) => {
+    const  dispatch = useDispatch();
+
+    const addPackHandler = useCallback((cardsPack: CardsPackType) => { 
         dispatch(addCardsThunk(cardsPack))
     }, [])
 
+    const [searchFn, setSearchFn] = useState()
+    
+    const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        const target = e.currentTarget;
+       // setSearchFn((packs: CardsPackType[]) => target.value === '' ? packs : packs.filter(p => p.name.includes(target.value)))   
+    }
 
     return (
         <div>
             <Toolbar>
                 <FormControl>
-                    <TextField 
+                    <InputLabel>Search</InputLabel>
+                    <Input 
                        id='searchingInput'
-                       label='Search for the pack'
-                       InputProps={{
+                       onChange={handleSearch}
+                        inputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
                                <Search/>

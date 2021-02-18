@@ -4,15 +4,13 @@ import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableRow from '@material-ui/core/TableRow'
 import TableBody from '@material-ui/core/TableBody'
-import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableFooter from '@material-ui/core/TableFooter'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
-import {getPacksThunk } from '../redux/reducers/cards-pack-reducer'
+import {getPacksThunk } from '../../redux/reducers/cards-pack-reducer'
 import { useDispatch, useSelector } from 'react-redux'
-import { CardsPackType, packsAPI } from './../api/packs-api';
-import { AppRootStateType } from '../redux/store'
+import { CardsPackType } from '../../api/packs-api';
+import { AppRootStateType } from '../../redux/store'
 
 
 
@@ -108,43 +106,21 @@ export const TableComponent = () => {
     return stabilizedThis.map((el) => el[0]);
   }
 
-  
    const rowsAfterSorting = () => {
        return stableSort(rows, getComparator(order, orderBy)).slice(page * rowsPerPage, (page + 1) * rowsPerPage)
    }
 
+//    const handleSorting = (cellID: any) => {
+//     const isAsc = orderBy === cellID && order === 'asc'
+//     setOrder(isAsc ? 'desc' : 'asc')
+//     setOrderBy(cellID)
+//    }
 
-   const handleSorting = (cellID: any) => {
-    const isAsc = orderBy === cellID && order === 'asc'
-    setOrder(isAsc ? 'desc' : 'asc')
-    setOrderBy(cellID)
-   }
-
-    
 
     return (
         <div>
            <TableContainer>
                <Table className={classes.table}>
-                   <TableHead>
-                       <TableRow>
-                           {
-                               headCells.map(headcell => 
-                               <TableCell 
-                               key={headcell.id}
-                               sortDirection={orderBy === headcell.id ? order : false}
-                               >{headcell.disableSorting ? headcell.label : 
-                                   <TableSortLabel 
-                                   active={orderBy === headcell.id}
-                                   direction={orderBy === headcell.id ? order : 'asc'}
-                                   onClick={() => handleSorting(headcell.id)}>
-                                   {headcell.label} 
-                                   </TableSortLabel>}
-                                </TableCell>) 
-                           }
-                            <TableCell></TableCell> 
-                       </TableRow>
-                   </TableHead>
                    <TableBody> 
                         {rowsAfterSorting().map((row => <TableRow>
                             <TableCell key='name'>{row.name}</TableCell>

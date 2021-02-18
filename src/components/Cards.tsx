@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { AppRootStateType } from '../redux/store'
-
+import styles from '../styles/Packs.module.css'
 
 export const Cards = () => {
 
@@ -14,7 +14,7 @@ export const Cards = () => {
 
     return (
         <div>
-            this is cards 
+           
         </div>
     )
 }
