@@ -11,10 +11,8 @@ import {getPacksThunk } from '../../redux/reducers/cards-pack-reducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { CardsPackType } from '../../api/packs-api'
 import { AppRootStateType } from '../../redux/store'
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import IconButton from '@material-ui/core/IconButton'
-
+import TableHead from '@material-ui/core/TableHead'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
 
 
 
@@ -36,15 +34,10 @@ export const TableComponent = () => {
     
     const rows = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.packs.cardPacks)
     //const page = useSelector<AppRootStateType,number>(state => state.packs.page)
-    
-  
-    
-   
-    //const [rows, setRows] = useState(cardsPacks)
 
 
     //----- initial state for table headers ------
-    const [headCells, setHeadCells] = useState([
+    const [headcells, setHeadCells] = useState([
         {id: 'name', label: 'Name', disableSorting: true},
         {id: 'cardsCount', label: 'Cards Count'},
         {id: 'updated', label: 'Updated', disableSorting: true},
@@ -61,12 +54,11 @@ export const TableComponent = () => {
     const [orderBy, setOrderBy] = useState<any>()
 
     
-    
-    
     //--- overriding default table styles ------
     const useStyles = makeStyles(theme => ({
         table: {
             marginTop: theme.spacing(3),
+            minWidth: 800,
             '& thead th': {
                 fontWeight: '600',
                 color: theme.palette.primary.contrastText,  
@@ -103,7 +95,6 @@ export const TableComponent = () => {
 
   type Order = 'asc' | 'desc';
   
-
   function getComparator<Key extends keyof any>(
     order: Order,
     orderBy: Key,
@@ -126,13 +117,34 @@ export const TableComponent = () => {
    const rowsAfterSorting = () => {
        return stableSort(rows, getComparator(order, orderBy))
    }
-
+    const handleSortRequest = (cellID: string) => {
+        const isAsc = orderBy === cellID && order === 'asc'
+        setOrder(isAsc ? 'desc' : 'asc')
+        setOrderBy(cellID)
+    }
 
     return (
         <div>
            <TableContainer>
                <Table className={classes.table}>
                    <TableBody> 
+                   <TableHead>
+                       <TableRow>
+                           {
+                               headcells.map(headcell => (
+                               <TableCell key={headcell.id}>
+                                   <TableSortLabel 
+                                   //component={TableSortLabel}
+                                   active={orderBy === headcell.id}
+                                    direction={orderBy === headcell.id ? order : 'asc'}
+                                    onClick={() => handleSortRequest(headcell.id)}
+                                    >
+                                    {headcell.label}
+                                   </TableSortLabel> 
+                               </TableCell>)) 
+                           }
+                       </TableRow>
+                   </TableHead>
                         {rowsAfterSorting().map((row => <TableRow>
                             <TableCell key='name'>{row.name}</TableCell>
                             <TableCell key='cards-count'>{row.cardsCount}</TableCell>
@@ -141,13 +153,14 @@ export const TableComponent = () => {
                             <TableCell><button>Update</button></TableCell>
                             <TableCell><button>Delete</button></TableCell>
                         </TableRow>))} 
+                       
                    </TableBody>
                </Table>
            </TableContainer>
            <TableFooter>
                  <TableRow>
                  <TablePagination 
-                    component="div" 
+                    component="div"  
                     rowsPerPageOptions={pages} 
                     rowsPerPage={pageCount}
                     page={pagesCount}
