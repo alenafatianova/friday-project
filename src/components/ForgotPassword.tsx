@@ -2,7 +2,7 @@ import { spawn } from 'child_process'
 import React, { ChangeEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { requestStatus, sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
+import { sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
 import styles from '../styles/forgotPassword.module.css'
 
 

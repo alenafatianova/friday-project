@@ -9,7 +9,7 @@ export const initialPacksState = {
     maxCardsCount: 5,
     minCardsCount: 0,
     page: 1,
-    pageCount: 4
+    pageCount: 5
 }
 export type initialPacksStateType = {
     cardPacks: CardsPackType[]

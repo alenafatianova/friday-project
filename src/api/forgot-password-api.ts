@@ -1,17 +1,5 @@
 import { instance } from "./instance"
 
-<<<<<<< HEAD
-=======
-export const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    withCredentials: true,
-
-})
-// const instance = axios.create({
-//     baseURL: 'http://localhost:7542/2.0/',
-//     withCredentials: true
-// })
->>>>>>> master
 
 type forgotPasswordResponseType = {
     info: string
@@ -23,7 +11,6 @@ type setNewPasswordResponseType = {
 }
 
 export const forgotPasswordAPI = {
-<<<<<<< HEAD
     async forgotPassword(email: string, from?: string, message?: string)  {
         try {
         const response = await instance.post<forgotPasswordResponseType>(`auth/forgot`, {email, from, message})
@@ -45,12 +32,5 @@ export const forgotPasswordAPI = {
         catch(error) {
             return console.log(error);
         }
-=======
-    forgotPassword(email: string, from?: string, message?: string)  {
-       return instance.post<forgotPasswordResponseType>(`auth/forgot`, {email, from, message})   
-    },
-    setNewPassword(password: string, resetPasswordToken: string) {
-       return  instance.post<setNewPasswordResponseType>(`auth/set-new-password/`, {password, resetPasswordToken})
->>>>>>> master
     }
 }
