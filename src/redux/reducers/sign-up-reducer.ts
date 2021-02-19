@@ -1,3 +1,4 @@
+import { setAppStatusAC } from './app-reducer';
 import { signUpAPI } from './../../api/sign-up-api';
 import { Dispatch } from 'redux'
 
@@ -34,6 +35,12 @@ export const signUp = (email: string, password: string) => ({type: SIGNUP_DATA, 
 type SignUpActionsType = ReturnType<typeof signUp> 
 
 export const signUpThunk = (email: string, password: string) => async(dispatch: Dispatch) => {
-    signUpAPI.signUp(email, password)
-    dispatch(signUp(email, password))
-}
+   try {
+        dispatch(setAppStatusAC('loading'))
+        await signUpAPI.signUp(email, password)
+            dispatch(signUp(email, password))
+    }
+    catch(err) {
+        console.log(err)
+    }
+}   

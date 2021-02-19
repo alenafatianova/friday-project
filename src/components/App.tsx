@@ -12,14 +12,18 @@ import React, { useEffect } from 'react';
 import { Navlink } from './Navlink';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redux/store";
+<<<<<<< HEAD
 import {initializeAppTC} from "../redux/reducers/app-reducer";
 import { Cards } from './Cards';
 import { Packs } from './Packs';
+=======
+//import {initializeAppTC} from "../redux/reducers/app-reducer";
+>>>>>>> master
 
 
 export const App = () => {
     const isInitialized=useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
-    const  dispatch =useDispatch()
+    //const  dispatch =useDispatch()
 
 
     // useEffect(()=> {
