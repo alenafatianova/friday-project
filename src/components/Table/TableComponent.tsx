@@ -22,14 +22,23 @@ export const TableComponent = () => {
 
     const dispatch = useDispatch();
     
+
+    const dispatchGetPacksThunk = (page: number, pageCount: number ) => {
+        dispatch(getPacksThunk(page, pageCount))
+    }
+    
+    const pagesCount = useSelector<AppRootStateType, number>(state => state.packs.page)
+    const pageCount = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
+
     useEffect(() => {
-        dispatch(getPacksThunk(1, 20))
+        dispatchGetPacksThunk(pagesCount, pageCount)
     }, [])
     
     const rows = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.packs.cardPacks)
-    const totalCardsCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
-    const pagesCount = useSelector<AppRootStateType, number>(state => state.packs.page)
-    const pageCount = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
+    //const page = useSelector<AppRootStateType,number>(state => state.packs.page)
+    
+    //const indexOfLastPack = page * rowsPerPage;
+    
    
     //const [rows, setRows] = useState(cardsPacks)
 
@@ -75,7 +84,7 @@ export const TableComponent = () => {
     const classes = useStyles();
 
    const handlerChangePage = (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => {
-        setPage(newPage)
+        //setPage(newPage)
    }
    const handlerChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, ) => {
         setRowsPerPage(parseInt(event.target.value, 10))
