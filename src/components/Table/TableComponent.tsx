@@ -37,7 +37,7 @@ export const TableComponent = () => {
     const rows = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.packs.cardPacks)
     //const page = useSelector<AppRootStateType,number>(state => state.packs.page)
     
-    //const indexOfLastPack = page * rowsPerPage;
+  
     
    
     //const [rows, setRows] = useState(cardsPacks)
@@ -84,11 +84,10 @@ export const TableComponent = () => {
     const classes = useStyles();
 
    const handlerChangePage = (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => {
-        //setPage(newPage)
+        setPage(newPage)
    }
    const handlerChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, ) => {
-        setRowsPerPage(parseInt(event.target.value, 10))
-        setPage(0)
+        dispatchGetPacksThunk(pagesCount, parseInt(event.target.value, 10))
    }
   
 
@@ -125,7 +124,7 @@ export const TableComponent = () => {
   }
 
    const rowsAfterSorting = () => {
-       return stableSort(rows, getComparator(order, orderBy)).slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+       return stableSort(rows, getComparator(order, orderBy))
    }
 
 
@@ -150,8 +149,8 @@ export const TableComponent = () => {
                  <TablePagination 
                     component="div" 
                     rowsPerPageOptions={pages} 
-                    rowsPerPage={rowsPerPage}
-                    page={page}
+                    rowsPerPage={pageCount}
+                    page={pagesCount}
                     count={rows.length}
                     onChangePage={() => handlerChangePage}
                     onChangeRowsPerPage={handlerChangeRowsPerPage} 

@@ -7,10 +7,6 @@ import { AppRootStateType } from '../redux/store'
 import styles from '../styles/resetPassword.module.css'
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 export const ResetPassword = React.memo(() => {
 
     const [newPasswordInput, setNewPasswordInput] = useState<string>('')
