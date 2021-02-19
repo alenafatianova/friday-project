@@ -3,7 +3,7 @@ import { NavLink} from 'react-router-dom'
 import styles from '../styles/header.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../redux/store";
-import {logoutTC} from "../redux/login-reducer";
+import {logoutTC} from "../redux/reducers/login-reducer";
 import {RequestStatusType} from "../redux/reducers/app-reducer";
 
 
@@ -30,8 +30,16 @@ export const Header = () => {
            <div className={styles.linksContainer}>
            <div className={styles.login}>
                {isStatus === 'loading' ? <div >Loading...</div> : ''}
-               {isLoggedIn ?   <button disabled={isStatus === 'loading'} onClick={logoutHandler} >Log Out</button> :
-                <NavLink to={'/login'}> Login </NavLink>}
+               {
+               isLoggedIn 
+               ? <button 
+                    disabled={isStatus === 'loading'} 
+                    onClick={logoutHandler}
+                    className={styles.logoutButton}>
+                        Log Out
+                </button> 
+               : <NavLink to={'/login'}> Login </NavLink>
+               }
             </div>
             <div className={styles.signup}>
               <NavLink to={'/signup'}>Sign Up</NavLink>  

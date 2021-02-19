@@ -13,23 +13,24 @@ export const ForgotPassword = React.memo(() => {
     const emailValue = (e: ChangeEvent<HTMLInputElement>) => setEmailInput(e.currentTarget.value)
     const [inputEmpty, setInputEmpty] = useState<boolean>(false)
     const inputCheck = () => setInputEmpty(emailInput.length === 0)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const dispatch = useDispatch()
-    const history = useHistory() 
+
 
     const onSendEmail = (email: string) => {
         dispatch(sendEmailThunk(email))
-        setEmailInput('')
-        //history.push('/resetPassword')
+        setLoading(true)
     }
 
    
+
   
     return (
         <div className={styles.mainContainer}>
         <form className={styles.recoverForm}>
              <div className={styles.recoverSpan}>
-             <span>Forgot password?</span>
+            {loading  ? <div>Loading...</div>  :  <span>Forgot password?</span>}
                 </div>
              <div className={styles.dataContainer}>
                  <div className={styles.recoverPasswordContainer}>

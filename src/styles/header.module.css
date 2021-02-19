@@ -24,3 +24,13 @@ a {
     text-decoration: none;
     color: black;
 }
+.logoutButton {
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(255, 227, 68);
+    font-family: 'Times New Roman', Times, serif;  
+    font-size: 16px;
+    color: rgb(43, 40, 40);
+}
