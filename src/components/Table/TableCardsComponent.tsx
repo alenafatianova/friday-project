@@ -23,6 +23,11 @@ export const TableCardsComponent = () => {
         {id: 'actions', label: 'Actions',  disableSorting: true}
     ])
 
+    const cards = useSelector(state => state)
+    const rowsAfterSorting = () => {
+        //return stableSort(cards, getComparator(order, orderBy)).slice(page * cardsPerPage, (page + 1) * cardsPerPage)
+    }
+
     const cardsRows = useSelector(state => state)
 
      //--- overriding default table styles ------
@@ -50,20 +55,20 @@ export const TableCardsComponent = () => {
              <TableContainer>
                <Table className={classes.table}>
                    <TableBody> 
-                        {rowsAfterSorting().map((row => <TableRow>
+                        {/* {rowsAfterSorting().map((row => <TableRow>
                             <TableCell key='name'>{row.name}</TableCell>
                             <TableCell key='cards-count'>{row.cardsCount}</TableCell>
                             <TableCell key='updated'>{row.updated}</TableCell>
                             <TableCell key='url'>URL</TableCell>
                             <TableCell><button>Update</button></TableCell>
                             <TableCell><button>Delete</button></TableCell>
-                        </TableRow>))} 
+                        </TableRow>))}  */}
                    </TableBody>
                </Table>
            </TableContainer>
            <TableFooter>
                  <TableRow>
-                 <TablePagination 
+                 {/* <TablePagination 
                     //component="div" 
                     //rowsPerPageOptions={pages} 
                     //rowsPerPage={rowsPerPage}
@@ -71,7 +76,7 @@ export const TableCardsComponent = () => {
                     //count={rows.length}
                     //onChangePage={() => handlerChangePage}
                     //onChangeRowsPerPage={handlerChangeRowsPerPage} 
-                    />
+                    /> */}
                  </TableRow> 
              </TableFooter>
         </div>
