@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableRow from '@material-ui/core/TableRow'
@@ -9,8 +9,12 @@ import TablePagination from '@material-ui/core/TablePagination'
 import TableFooter from '@material-ui/core/TableFooter'
 import {getPacksThunk } from '../../redux/reducers/cards-pack-reducer'
 import { useDispatch, useSelector } from 'react-redux'
-import { CardsPackType } from '../../api/packs-api';
+import { CardsPackType } from '../../api/packs-api'
 import { AppRootStateType } from '../../redux/store'
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
+import IconButton from '@material-ui/core/IconButton'
+
 
 
 
@@ -23,6 +27,9 @@ export const TableComponent = () => {
     }, [])
     
     const rows = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.packs.cardPacks)
+    const totalCardsCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
+    const pagesCount = useSelector<AppRootStateType, number>(state => state.packs.page)
+    const pageCount = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
    
     //const [rows, setRows] = useState(cardsPacks)
 
@@ -37,13 +44,15 @@ export const TableComponent = () => {
     ])
 
    
-    const [page, setPage] = useState<number>(0);
+    const [page, setPage] = useState<number>(pagesCount);
     const pages = [5, 10, 25]
     const [rowsPerPage, setRowsPerPage] = useState(pages[page])
 
     const [order, setOrder] = useState<any>()
     const [orderBy, setOrderBy] = useState<any>()
 
+    
+    
     
     //--- overriding default table styles ------
     const useStyles = makeStyles(theme => ({
@@ -110,12 +119,6 @@ export const TableComponent = () => {
        return stableSort(rows, getComparator(order, orderBy)).slice(page * rowsPerPage, (page + 1) * rowsPerPage)
    }
 
-//    const handleSorting = (cellID: any) => {
-//     const isAsc = orderBy === cellID && order === 'asc'
-//     setOrder(isAsc ? 'desc' : 'asc')
-//     setOrderBy(cellID)
-//    }
-
 
     return (
         <div>
@@ -142,9 +145,14 @@ export const TableComponent = () => {
                     page={page}
                     count={rows.length}
                     onChangePage={() => handlerChangePage}
-                    onChangeRowsPerPage={handlerChangeRowsPerPage} />
+                    onChangeRowsPerPage={handlerChangeRowsPerPage} 
+                    /> 
                  </TableRow> 
              </TableFooter>
         </div>
     )
 }
+
+
+
+

@@ -5,10 +5,19 @@ import React from 'react'
 
 export const initialPacksState = {
     cardPacks: [],
-  
+    cardPacksTotalCount: 14,
+    maxCardsCount: 5,
+    minCardsCount: 0,
+    page: 1,
+    pageCount: 4
 }
 export type initialPacksStateType = {
     cardPacks: CardsPackType[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
 }
 
 

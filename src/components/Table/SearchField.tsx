@@ -26,7 +26,8 @@ export const SearchField = React.memo(() => {
         dispatch(addCardsThunk(cardsPack))
     }, [])
 
-    const [searchFn, setSearchFn] = useState()
+    const [searchFn, setSearchFn] = useState('')
+    const packList = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.packs.cardPacks)
     
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         const target = e.currentTarget;
