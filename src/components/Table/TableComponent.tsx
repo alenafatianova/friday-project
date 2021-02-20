@@ -19,7 +19,6 @@ import TableSortLabel from '@material-ui/core/TableSortLabel'
 export const TableComponent = () => {
 
     const dispatch = useDispatch();
-    
 
     const dispatchGetPacksThunk = (page: number, pageCount: number ) => {
         dispatch(getPacksThunk(page, pageCount))
@@ -39,10 +38,11 @@ export const TableComponent = () => {
     //----- initial state for table headers ------
     const [headcells, setHeadCells] = useState([
         {id: 'name', label: 'Name', disableSorting: true},
-        {id: 'cardsCount', label: 'Cards Count'},
+        {id: 'cardsCount', label: 'Cards Count', disableSorting: false},
         {id: 'updated', label: 'Updated', disableSorting: true},
         {id: 'url', label: 'URL', disableSorting: true},
-        {id: 'actions', label: 'Actions',  disableSorting: true}
+        {id: 'actionUpdate', label: 'Actions',  disableSorting: true},
+        {id: '', label: '',  disableSorting: true}
     ])
 
    
@@ -57,12 +57,11 @@ export const TableComponent = () => {
     //--- overriding default table styles ------
     const useStyles = makeStyles(theme => ({
         table: {
-            marginTop: theme.spacing(3),
-            minWidth: 800,
+            marginTop: theme.spacing(6),
             '& thead th': {
                 fontWeight: '600',
                 color: theme.palette.primary.contrastText,  
-                backgroundColor: theme.palette.primary.light
+                backgroundColor: theme.palette.primary.light,
             },
             '& tbody td': {
                 fontWeight: '300',
@@ -126,34 +125,32 @@ export const TableComponent = () => {
     return (
         <div>
            <TableContainer>
-               <Table className={classes.table}>
+               <Table className={classes.table} >
+               <TableHead>
+                       {
+                           headcells.map(headcell => (
+                           <TableCell key={headcell.id}>
+                               
+                               <TableSortLabel 
+                                active={orderBy === headcell.id}
+                                direction={orderBy === headcell.id ? order : 'asc'}
+                                onClick={() => handleSortRequest(headcell.id)}
+                                > 
+                                {headcell.label}
+                               </TableSortLabel> 
+                           </TableCell>)) 
+                       }
+               </TableHead>
                    <TableBody> 
-                   <TableHead>
-                       <TableRow>
-                           {
-                               headcells.map(headcell => (
-                               <TableCell key={headcell.id}>
-                                   <TableSortLabel 
-                                   //component={TableSortLabel}
-                                   active={orderBy === headcell.id}
-                                    direction={orderBy === headcell.id ? order : 'asc'}
-                                    onClick={() => handleSortRequest(headcell.id)}
-                                    >
-                                    {headcell.label}
-                                   </TableSortLabel> 
-                               </TableCell>)) 
-                           }
-                       </TableRow>
-                   </TableHead>
+                 
                         {rowsAfterSorting().map((row => <TableRow>
                             <TableCell key='name'>{row.name}</TableCell>
                             <TableCell key='cards-count'>{row.cardsCount}</TableCell>
                             <TableCell key='updated'>{row.updated}</TableCell>
-                            <TableCell key='url'>URL</TableCell>
+                            <TableCell key='url'></TableCell>
                             <TableCell><button>Update</button></TableCell>
                             <TableCell><button>Delete</button></TableCell>
                         </TableRow>))} 
-                       
                    </TableBody>
                </Table>
            </TableContainer>
