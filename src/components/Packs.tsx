@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from '../styles/Packs.module.css'
 import { TableComponent } from './Table/TableComponent'
 import { SearchField } from './Table/SearchField'
-
-
+import { getPacksThunk } from '../redux/reducers/cards-pack-reducer'
+import { useDispatch } from 'react-redux'
 
 
 export const Packs = () => {
@@ -13,7 +13,7 @@ export const Packs = () => {
     // if (!isLoggedIn) {
     //     return <Redirect to={'/login'} /> 
     // }
-
+   
     return (
         <div className={styles.packsMainDiv}>
          <div className={styles.tableContainer}>

@@ -12,19 +12,23 @@ import TableHead from '@material-ui/core/TableHead'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { TablePagination } from '@material-ui/core'
 import { CardsPackResponseType } from '../../api/packs-api'
+import { Pagination } from './Pagination'
+import { Pages } from '@material-ui/icons'
 
 
 export const TableComponent = () => {
+   
     const pageSize = useSelector<AppRootStateType, number>(state => state.packs.page)
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const rows = useSelector<AppRootStateType, Array<CardsPackResponseType>>(state => state.packs.cardPacks)
     const user_id = useSelector<AppRootStateType, string>(state => state.profile._id)
     const dispatch = useDispatch()
     
-    useEffect(() => {
-        dispatch(getPacksThunk(pageSize, packsPerPage, user_id))   
-    }, [])
-
+    
+        useEffect(() => {
+            dispatch(getPacksThunk(pageSize, packsPerPage, user_id))
+        }, [])
+   
    
      
     //----- initial state for table headers ------
@@ -100,13 +104,11 @@ export const TableComponent = () => {
         setOrderBy(cellID)
     }
 
-   
-
     return ( 
         <div>
            <TableContainer>
+           <Pagination />
                <Table className={classes.table} >
-                   
                <TableHead>
                        {headcells.map(headcell => (
                            <TableCell key={headcell.id}>

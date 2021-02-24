@@ -102,7 +102,7 @@ export const getPacksThunk = (page: number, pageCount: number, user_id: string) 
             dispatch(getCardsPacksAC(res.data.cardPacks))
         })
     .catch((err) => {
-        alert(err)
+        alert(err) 
     }) 
 }
 
@@ -118,9 +118,13 @@ export const addCardsThunk = (name: string) => async(dispatch: thunksType, getSt
 }
 
 export const updateCardsThunk = (_id: string, name: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
+    const page = getState().packs.page
+    const pageCount = getState().packs.pageCount
+    const user_id = getState().profile._id
     await packsAPI.changeCardsPack(_id, name)
         .then(res => {
             dispatch(changeCardsPackAC(res.data._id, res.data.name))
+            dispatch(getPacksThunk(page, pageCount, user_id))
         })
         .catch(err => alert(err))
     
