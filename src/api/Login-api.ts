@@ -1,8 +1,5 @@
-import axios from 'axios'
 import { instance } from './instance';
  
-
-
 // api
 export const authAPI  = {
     login(data: LoginRequestType) {

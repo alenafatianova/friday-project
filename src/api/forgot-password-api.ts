@@ -1,6 +1,5 @@
 import { instance } from "./instance"
 
-
 type forgotPasswordResponseType = {
     info: string
     error: string

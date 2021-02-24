@@ -1,6 +1,6 @@
 import { instance } from "./instance"
 
-export type CardsPackType = {
+export type CardsPackResponseType = {
     _id: string
     user_id: string
     name: string
@@ -15,33 +15,24 @@ export type CardsPackType = {
     __v: number
 }
 
-export type getPackResponseType = {
-    cardPacks: Array<CardsPackType>
+export type PacksResponseType = {
+    cardPacks: CardsPackResponseType[]
     page: number
     pageCount: number
     cardPacksTotalCount: number
 }
-export type addCardsPackResponseType = {
-    newCardsPack: CardsPackType
-}
-export type updatedCardsPackresponseType = {
-    updatedCardsPack: CardsPackType
-}
-export type deletedCardsPackResponseType = {
-    deletedCardsPack: CardsPackType
-}
 
 export const packsAPI = {
-    getCardsPack(page: number, pageCount: number) {
-        return instance.get<getPackResponseType>(`cards/pack`, {params: {page, pageCount}})
+    getCardsPack(page?:number, pageCount?: number, packName?: string, min?: number, max?: number,  user_id?: string  ) {
+        return instance.get<PacksResponseType>(`cards/pack`, {params: {page, pageCount, user_id, packName}})
     },
-    addCardsPack(cardsPack: CardsPackType) {
-        return  instance.post<addCardsPackResponseType>('cards/pack', {cardsPack})
+    addCardsPack(name: string) {
+        return  instance.post<CardsPackResponseType>('cards/pack', {cardsPack: {name}})
     },       
     changeCardsPack(_id: string, name: string) {
-        return instance.put<updatedCardsPackresponseType>('cards/pack', {cardsPack: {_id, name}})
+        return instance.put<CardsPackResponseType>('cards/pack', {cardsPack: {_id, name}})
     },
     deleteCardsPack(id: string) {
-      return instance.delete<deletedCardsPackResponseType>(`cards/pack`, {params: {id}})
+      return instance.delete<CardsPackResponseType>(`cards/pack`, {params: {id}})
     }
 }

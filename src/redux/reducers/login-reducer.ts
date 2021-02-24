@@ -26,7 +26,6 @@ export const loginTC = (data: LoginRequestType) => async (dispatch: Dispatch<Act
 
     dispatch(setAppStatusAC('loading'))
     await authAPI.login(data).then((res) => {
-        debugger
         dispatch(setIsLoggedInAC(true))
         dispatch(setAppStatusAC('succeeded'))
         dispatch(setUserAC(res.data))

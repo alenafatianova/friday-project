@@ -1,0 +1,29 @@
+.cardsMainDiv {
+    height: 100vh;
+    color: rgb(71, 70, 70);
+    font-size: 18px;
+}
+.cardsCheckbox, .cardsTitle {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+.tableContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 10%;
+    border: 1px solid  rgb(71, 70, 70);
+    align-items: center;
+}
+.cardsAddButton {
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(255, 227, 68);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    color: rgb(43, 40, 40);
+}

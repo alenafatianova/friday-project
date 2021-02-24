@@ -1,7 +1,5 @@
-import { spawn } from 'child_process'
 import React, { ChangeEvent, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { sendEmailThunk } from '../redux/reducers/forgot-password-reducer'
 import styles from '../styles/forgotPassword.module.css'
 
@@ -17,15 +15,11 @@ export const ForgotPassword = React.memo(() => {
 
     const dispatch = useDispatch()
 
-
     const onSendEmail = (email: string) => {
         dispatch(sendEmailThunk(email))
         setLoading(true)
     }
 
-   
-
-  
     return (
         <div className={styles.mainContainer}>
         <form className={styles.recoverForm}>

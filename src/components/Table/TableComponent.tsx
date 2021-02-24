@@ -1,40 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableRow from '@material-ui/core/TableRow'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
-import TablePagination from '@material-ui/core/TablePagination'
-import TableFooter from '@material-ui/core/TableFooter'
-import {getPacksThunk } from '../../redux/reducers/cards-pack-reducer'
+import {getPacksThunk, setCurrentPageAC, setPacksSizeAC } from '../../redux/reducers/cards-pack-reducer' 
 import { useDispatch, useSelector } from 'react-redux'
-import { CardsPackType } from '../../api/packs-api'
 import { AppRootStateType } from '../../redux/store'
 import TableHead from '@material-ui/core/TableHead'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
-
+import { TablePagination } from '@material-ui/core'
+import { CardsPackResponseType } from '../../api/packs-api'
 
 
 export const TableComponent = () => {
-
-    const dispatch = useDispatch();
-
-    const dispatchGetPacksThunk = (page: number, pageCount: number ) => {
-        dispatch(getPacksThunk(page, pageCount))
-    }
+    const pageSize = useSelector<AppRootStateType, number>(state => state.packs.page)
+    const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
+    const rows = useSelector<AppRootStateType, Array<CardsPackResponseType>>(state => state.packs.cardPacks)
+    const user_id = useSelector<AppRootStateType, string>(state => state.profile._id)
+    const dispatch = useDispatch()
     
-    const pagesCount = useSelector<AppRootStateType, number>(state => state.packs.page)
-    const pageCount = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
-
     useEffect(() => {
-        dispatchGetPacksThunk(pagesCount, pageCount)
+        dispatch(getPacksThunk(pageSize, packsPerPage, user_id))   
     }, [])
-    
-    const rows = useSelector<AppRootStateType, Array<CardsPackType>>(state => state.packs.cardPacks)
-    //const page = useSelector<AppRootStateType,number>(state => state.packs.page)
 
-
+   
+     
     //----- initial state for table headers ------
     const [headcells, setHeadCells] = useState([
         {id: 'name', label: 'Name', disableSorting: true},
@@ -45,15 +37,9 @@ export const TableComponent = () => {
         {id: '', label: '',  disableSorting: true}
     ])
 
-   
-    const [page, setPage] = useState<number>(pagesCount);
-    const pages = [5, 10, 25]
-    const [rowsPerPage, setRowsPerPage] = useState(pages[page])
-
     const [order, setOrder] = useState<any>()
     const [orderBy, setOrderBy] = useState<any>()
 
-    
     //--- overriding default table styles ------
     const useStyles = makeStyles(theme => ({
         table: {
@@ -73,15 +59,7 @@ export const TableComponent = () => {
         },
     }))
     const classes = useStyles();
-
-   const handlerChangePage = (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => {
-        setPage(newPage)
-   }
-   const handlerChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, ) => {
-        dispatchGetPacksThunk(pagesCount, parseInt(event.target.value, 10))
-   }
   
-
   function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -118,19 +96,20 @@ export const TableComponent = () => {
    }
     const handleSortRequest = (cellID: string) => {
         const isAsc = orderBy === cellID && order === 'asc'
-        setOrder(isAsc ? 'desc' : 'asc')
+        setOrder(isAsc ? 'desc' : 'asc') 
         setOrderBy(cellID)
     }
 
-    return (
+   
+
+    return ( 
         <div>
            <TableContainer>
                <Table className={classes.table} >
+                   
                <TableHead>
-                       {
-                           headcells.map(headcell => (
+                       {headcells.map(headcell => (
                            <TableCell key={headcell.id}>
-                               
                                <TableSortLabel 
                                 active={orderBy === headcell.id}
                                 direction={orderBy === headcell.id ? order : 'asc'}
@@ -142,7 +121,6 @@ export const TableComponent = () => {
                        }
                </TableHead>
                    <TableBody> 
-                 
                         {rowsAfterSorting().map((row => <TableRow>
                             <TableCell key='name'>{row.name}</TableCell>
                             <TableCell key='cards-count'>{row.cardsCount}</TableCell>
@@ -154,19 +132,6 @@ export const TableComponent = () => {
                    </TableBody>
                </Table>
            </TableContainer>
-           <TableFooter>
-                 <TableRow>
-                 <TablePagination 
-                    component="div"  
-                    rowsPerPageOptions={pages} 
-                    rowsPerPage={pageCount}
-                    page={pagesCount}
-                    count={rows.length}
-                    onChangePage={() => handlerChangePage}
-                    onChangeRowsPerPage={handlerChangeRowsPerPage} 
-                    /> 
-                 </TableRow> 
-             </TableFooter>
         </div>
     )
 }

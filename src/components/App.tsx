@@ -1,5 +1,5 @@
 import styles from '../styles/App.module.css';
-import {  HashRouter, Redirect, Route, Router, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { Login } from './Login';
 import { SignUp } from './SignUp';
 import { Profile } from './Profile';
@@ -8,19 +8,15 @@ import { ForgotPassword } from './ForgotPassword';
 import { ResetPassword } from './ResetPassword';
 import { TestPage } from './TestPage'; 
 import { Header } from './Header';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navlink } from './Navlink';
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../redux/store";
-import {initializeAppTC} from "../redux/reducers/app-reducer";
 import { Cards } from './Cards';
 import { Packs } from './Packs';
 
 
 export const App = () => {
-    const isInitialized=useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    //const isInitialized=useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     //const  dispatch =useDispatch()
-
 
     // useEffect(()=> {
     
@@ -42,7 +38,7 @@ export const App = () => {
             <Route exact path={'/signup'} render={() => <SignUp/>} />
             <Route exact path={'/profile'} render={() => <Profile/>}/>
             <Route exact path={'/cards'} render={() => <Cards/>} />
-            <Route exact path={'/packs'} render={() => <Packs/>} />
+            <Route exact path={'/packs'} render={() => <Packs />} />
             <Route exact path={'/forgotPassword'} render={() => <ForgotPassword/> }/>
             <Route exact path={'/resetPassword/:resetPasswordToken'} render={() => <ResetPassword/> }/>
             <Route exact path={'/test'} component={ TestPage }/>

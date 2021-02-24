@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
@@ -8,7 +8,10 @@ import TableCell from '@material-ui/core/TableCell'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableFooter from '@material-ui/core/TableFooter'
 import { AppRootStateType } from '../../redux/store'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { TableHead, TableSortLabel } from '@material-ui/core'
+import { getCardsThunk } from '../../redux/reducers/card-reducer'
+import { ResponseTypeCardsData } from '../../api/card-api'
 
 
 
@@ -23,12 +26,15 @@ export const TableCardsComponent = () => {
         {id: 'actions', label: 'Actions',  disableSorting: true}
     ])
 
-    const cards = useSelector(state => state)
-    const rowsAfterSorting = () => {
-        //return stableSort(cards, getComparator(order, orderBy)).slice(page * cardsPerPage, (page + 1) * cardsPerPage)
-    }
 
-    const cardsRows = useSelector(state => state)
+    const cardsSize = useSelector<AppRootStateType, number>(state => state.cards.pageSize)
+    const currentPage = useSelector<AppRootStateType, number>(state => state.cards.pageCurrent)
+    
+    const dispatch = useDispatch()
+    
+    // useEffect(() => {
+    //     dispatch(getCardsThunk(cardsSize, currentPage, cardsPack_id))   
+    // }, [])
 
      //--- overriding default table styles ------
      const useStyles = makeStyles(theme => ({
@@ -53,32 +59,41 @@ export const TableCardsComponent = () => {
     return (
         <div>
              <TableContainer>
-               <Table className={classes.table}>
-                   <TableBody> 
-                        {/* {rowsAfterSorting().map((row => <TableRow>
+           {/* <TablePagination
+                    rowsPerPageOptions={pageOptions}
+                    component='div'
+                    count={rows.length} 
+                    rowsPerPage={packsPerPage}
+                    page={pageSize}
+                    onChangePage={() => handleChangePage}
+                    onChangeRowsPerPage={handleRowsPerPage}
+                   /> */}
+               <Table className={classes.table} >
+               {/* <TableHead>
+                       {cardsHeadCells.map(cardHeadcell => (
+                           <TableCell key={cardHeadcell.id}>
+                               <TableSortLabel 
+                                active={orderBy === cardHeadcell.id}
+                                direction={orderBy === cardHeadcell.id ? order : 'asc'}
+                                onClick={() => handleSortRequest(cardHeadcell.id)}
+                                > 
+                                {cardHeadcell.label}
+                               </TableSortLabel> 
+                           </TableCell>)) 
+                       }
+               </TableHead> */}
+                   {/* <TableBody> 
+                        {rowsAfterSorting().map((row => <TableRow>
                             <TableCell key='name'>{row.name}</TableCell>
                             <TableCell key='cards-count'>{row.cardsCount}</TableCell>
                             <TableCell key='updated'>{row.updated}</TableCell>
-                            <TableCell key='url'>URL</TableCell>
+                            <TableCell key='url'></TableCell>
                             <TableCell><button>Update</button></TableCell>
                             <TableCell><button>Delete</button></TableCell>
-                        </TableRow>))}  */}
-                   </TableBody>
+                        </TableRow>))} 
+                   </TableBody> */}
                </Table>
            </TableContainer>
-           <TableFooter>
-                 <TableRow>
-                 {/* <TablePagination 
-                    //component="div" 
-                    //rowsPerPageOptions={pages} 
-                    //rowsPerPage={rowsPerPage}
-                    //page={page}
-                    //count={rows.length}
-                    //onChangePage={() => handlerChangePage}
-                    //onChangeRowsPerPage={handlerChangeRowsPerPage} 
-                    /> */}
-                 </TableRow> 
-             </TableFooter>
         </div>
     )
 }

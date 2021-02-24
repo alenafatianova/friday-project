@@ -1,6 +1,5 @@
 import { instance } from "./instance";
 
-
 type signUpResponseType = {
     addedUser: {}
     error: string

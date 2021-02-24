@@ -4,8 +4,7 @@ import {  useParams } from 'react-router-dom'
 import { RequestStatusType } from '../redux/reducers/app-reducer'
 import { setNewPasswordThunk } from '../redux/reducers/forgot-password-reducer'
 import { AppRootStateType } from '../redux/store'
-import styles from '../styles/resetPassword.module.css'
-
+import styles from '../styles/resetPassword.module.css'   
 
 export const ResetPassword = React.memo(() => {
 
