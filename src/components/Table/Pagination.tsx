@@ -11,15 +11,14 @@ export const Pagination = () => {
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const [options, setOptions] = useState([5, 10,25])
     
-
     const pages = []
     const pagesAmount = Math.ceil(totalPacksAmount / packsPerPage)
     for (let i = 1; i <= pagesAmount; i++ ) {
         pages.push(i)
     }
     const dispatch = useDispatch()
-    const onChangePageHandler = (packsPerPage: number) => {
-        dispatch(setCurrentPageAC(packsPerPage))
+    const onChangePageHandler = (currentPage: number) => {
+        dispatch(setCurrentPageAC(currentPage))
     }
 
     return (
@@ -29,7 +28,7 @@ export const Pagination = () => {
                   pages.map(page => {
                       return <span 
                         className={currentPage === page ? styles.selectedPage : ''} 
-                        onClick={() => onChangePageHandler(page)}  >{page}</span>
+                        onClick={() => onChangePageHandler(page)}>{page}</span>
                   })
               }
           </div>

@@ -52,7 +52,7 @@ export const getErrorAC = (error: string)=> ({
     type: "SER-ERROR", error}as const)
 
 //thunks
-export const getCardsThunk = (pageSize:number,currentPage:number, cardsPack_id: string) => (dispatch: Dispatch) => {
+export const getCardsThunk = (pageSize:number, currentPage:number, cardsPack_id: string) => (dispatch: Dispatch) => {
     dispatch(setStatusAC('loading'))
     ApiCards.getCards(cardsPack_id, pageSize, currentPage)
         .then((res) => {

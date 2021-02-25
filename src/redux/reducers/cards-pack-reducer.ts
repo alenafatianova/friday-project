@@ -4,7 +4,7 @@ import { ThunkDispatch } from 'redux-thunk';
 
 export const initialPacksState: initialPacksStateType = {
     cardPacks: [] as Array<CardsPackResponseType>, //-- список всех карточек
-    cardPacksTotalCount: 14, //-- количество колод 
+    cardPacksTotalCount: 50, //-- количество колод 
     maxCardsCount: 4,
     minCardsCount: 1, //-- минимальное кол-во карточек в колоде
     page: 1, //-- кол-во страниц, currentPage
@@ -58,7 +58,7 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
         case SET_CURRENT_PAGE: {
             return {
                 ...state,
-               currentPage: action.currentPage
+               page: action.page
             }
         }
         case SET_PACKS_SIZE: {
@@ -84,7 +84,7 @@ export const getCardsPacksAC = (getPacks: Array<CardsPackResponseType>) => ({typ
 export const addCardsPackAC = (cardsPack: Array<CardsPackResponseType>) => ({type: ADD_PACK, cardsPack} as const)
 export const changeCardsPackAC = (_id: string, name: string) => ({type: CHANGE_PACK, _id, name} as const)
 export const deleteCardsPackAC = (_id: string) => ({type: DELETE_PACK, _id} as const)
-export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setCurrentPageAC = (page: number) => ({type: SET_CURRENT_PAGE, page} as const)
 export const searchByNameAC = (packName: string) => ({type: SEARCH_BY_NAME, packName} as const)
 export const setPacksSizeAC = (pageCount: number) => ({type: SET_PACKS_SIZE, pageCount} as const)
 

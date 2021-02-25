@@ -18,15 +18,15 @@ import { Pages } from '@material-ui/icons'
 
 export const TableComponent = () => {
    
-    const pageSize = useSelector<AppRootStateType, number>(state => state.packs.page)
+    const currentPage = useSelector<AppRootStateType, number>(state => state.packs.page)
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const rows = useSelector<AppRootStateType, Array<CardsPackResponseType>>(state => state.packs.cardPacks)
     const user_id = useSelector<AppRootStateType, string>(state => state.profile._id)
     const dispatch = useDispatch()
-    
+     
     
         useEffect(() => {
-            dispatch(getPacksThunk(pageSize, packsPerPage, user_id))
+            dispatch(getPacksThunk(currentPage, packsPerPage, user_id))
         }, [])
    
    

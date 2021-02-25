@@ -29,11 +29,12 @@ export const TableCardsComponent = () => {
 
     const cardsSize = useSelector<AppRootStateType, number>(state => state.cards.pageSize)
     const currentPage = useSelector<AppRootStateType, number>(state => state.cards.pageCurrent)
-    
-    const dispatch = useDispatch()
+    //const cardsPack_id = useSelector<AppRootStateType, Array<ResponseTypeCardsData>>(state => state.cards.cardsPack_id)
+     
+    // const dispatch = useDispatch() 
     
     // useEffect(() => {
-    //     dispatch(getCardsThunk(cardsSize, currentPage, cardsPack_id))   
+    //     dispatch(getCardsThunk(cardsSize, currentPage, cardsPack_id))    
     // }, [])
 
      //--- overriding default table styles ------
