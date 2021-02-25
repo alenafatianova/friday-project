@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import styles from '../styles/Packs.module.css'
 import { TableComponent } from './Table/TableComponent'
 import { SearchField } from './Table/SearchField'
-import { getPacksThunk } from '../redux/reducers/cards-pack-reducer'
-import { useDispatch } from 'react-redux'
+import { Modal } from './Modal'
+import { ModalContainer } from './Table/ModalContainer'
 
 
 export const Packs = () => {
-   
+  
     // const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
 
     // if (!isLoggedIn) {
@@ -20,6 +20,7 @@ export const Packs = () => {
          <div><input className={styles.packsCheckbox} type="checkbox"/> My Packs </div>
             <SearchField />
             <TableComponent />
+           <ModalContainer/>
          </div>
         </div>
     )

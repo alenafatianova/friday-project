@@ -1,23 +1,24 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableRow from '@material-ui/core/TableRow'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
-import {getPacksThunk, setCurrentPageAC, setPacksSizeAC } from '../../redux/reducers/cards-pack-reducer' 
+import {getPacksThunk} from '../../redux/reducers/cards-pack-reducer' 
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from '../../redux/store'
 import TableHead from '@material-ui/core/TableHead'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
-import { TablePagination } from '@material-ui/core'
-import { CardsPackResponseType } from '../../api/packs-api'
 import { Pagination } from './Pagination'
-import { Pages } from '@material-ui/icons'
+import { CardsPackResponseType } from '../../api/packs-api'
+import { Modal } from '../Modal'
+
 
 
 export const TableComponent = () => {
-   
+    
+
     const currentPage = useSelector<AppRootStateType, number>(state => state.packs.page)
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const rows = useSelector<AppRootStateType, Array<CardsPackResponseType>>(state => state.packs.cardPacks)
@@ -28,8 +29,6 @@ export const TableComponent = () => {
         useEffect(() => {
             dispatch(getPacksThunk(currentPage, packsPerPage, user_id))
         }, [])
-   
-   
      
     //----- initial state for table headers ------
     const [headcells, setHeadCells] = useState([
@@ -133,7 +132,7 @@ export const TableComponent = () => {
                         </TableRow>))} 
                    </TableBody>
                </Table>
-           </TableContainer>
+           </TableContainer>   
         </div>
     )
 }

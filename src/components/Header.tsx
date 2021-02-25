@@ -42,7 +42,7 @@ export const Header = () => {
                }
             </div>
             <div className={styles.signup}>
-              <NavLink to={'/signup'}>Sign Up</NavLink>  
+              <NavLink to={'/signup'}>Sign In</NavLink>  
             </div>
            </div>
         </div>

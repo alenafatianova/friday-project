@@ -1,9 +1,9 @@
 import styles from '../styles/App.module.css';
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { Login } from './Login';
-import { SignUp } from './SignUp';
+import { SignIn } from './SignUp';
 import { Profile } from './Profile';
-import { Page404 } from './Page404';
+import { Page404 } from './Page404'; 
 import { ForgotPassword } from './ForgotPassword';
 import { ResetPassword } from './ResetPassword';
 import { TestPage } from './TestPage'; 
@@ -35,7 +35,7 @@ export const App = () => {
             <Switch>
             <Route exact path={'/'} render={() => <Redirect from={'/'} to={'/profile'} />} />
             <Route exact path={'/login'} render={() => <Login/>} />
-            <Route exact path={'/signup'} render={() => <SignUp/>} />
+            <Route exact path={'/signup'} render={() => <SignIn/>} />
             <Route exact path={'/profile'} render={() => <Profile/>}/>
             <Route exact path={'/cards'} render={() => <Cards/>} />
             <Route exact path={'/packs'} render={() => <Packs />} />

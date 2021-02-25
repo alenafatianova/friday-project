@@ -6,7 +6,7 @@ import styles from '../styles/signup.module.css'
 
 
 
-export const SignUp = () => {
+export const SignIn = () => {
 
     const [email, setEmail] = useState<string>('')
     const [emptyEmail, setEmptyEmail] = useState<boolean>(false)

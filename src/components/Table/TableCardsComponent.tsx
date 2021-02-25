@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TableHead, TableSortLabel } from '@material-ui/core'
 import { getCardsThunk } from '../../redux/reducers/card-reducer'
 import { ResponseTypeCardsData } from '../../api/card-api'
+import { useParams } from 'react-router-dom'
 
 
 
@@ -29,13 +30,12 @@ export const TableCardsComponent = () => {
 
     const cardsSize = useSelector<AppRootStateType, number>(state => state.cards.pageSize)
     const currentPage = useSelector<AppRootStateType, number>(state => state.cards.pageCurrent)
-    //const cardsPack_id = useSelector<AppRootStateType, Array<ResponseTypeCardsData>>(state => state.cards.cardsPack_id)
-     
-    // const dispatch = useDispatch() 
+    const {cardId} = useParams<{ cardId: string }>()
+    const dispatch = useDispatch() 
     
-    // useEffect(() => {
-    //     dispatch(getCardsThunk(cardsSize, currentPage, cardsPack_id))    
-    // }, [])
+    useEffect(() => {
+        dispatch(getCardsThunk(cardsSize, currentPage, cardId))    
+    }, [])
 
      //--- overriding default table styles ------
      const useStyles = makeStyles(theme => ({
