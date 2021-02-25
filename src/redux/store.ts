@@ -7,6 +7,7 @@ import { loginReducer} from "./reducers/login-reducer";
 import {profileReducer} from "../redux/reducers/profile-reducer";
 import { forgotPasswordReducer } from './reducers/forgot-password-reducer';
 import {CardsReducer} from "./reducers/card-reducer";
+import {CardsGradeReducer} from "./reducers/cards-grade-reducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     forgotPassword: forgotPasswordReducer,
     packs: PacksReducer,
-    cards: CardsReducer
+    cards: CardsReducer,
+    cardsGrade:  CardsGradeReducer
 })
 // непосредственно создаём store
 export const store = createStore(

@@ -38,6 +38,9 @@ export const ApiCards = {
     },
     putCards(_id: string, question?: string, comments?: string){
         return instance.put<ResponseTypeCardsData>("cards/card", {card: {_id, question, comments}})
+    },
+    setGrade(card_id:string, grade:number) {
+        return instance.put('cards/grade', {card_id, grade})
     }
 
 }
