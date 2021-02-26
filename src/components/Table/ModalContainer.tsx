@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { Modal } from '../Modal'
 
+
 export const ModalContainer = () => {
-    const [modalActive, setModalActive] = useState<boolean>(true)
+    const [modalActive, setModalActive] = useState(false)
     return (
         <div> 
-           
-            <Modal active={modalActive} setActive={setModalActive}>
-                
-            </Modal>
-             <button onClick={() => setModalActive(false)}>Open modal</button> 
+            <div>
+                <button onClick={() => setModalActive(true)}>open modal</button>
+                <Modal active={modalActive} setActive={setModalActive}>
+                   
+                </Modal>
+            </div> 
         </div>
     )
 }
