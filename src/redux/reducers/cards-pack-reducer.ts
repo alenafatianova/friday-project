@@ -34,13 +34,13 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
         case GET_PACKS: {
             return {
                 ...state, 
-              ...action.getPacks  
+                getPacks: action.getPacks  
             }
         }
         case ADD_PACK: {
             return {
                 ...state,
-                cardsPack: [...state.cardPacks, action.cardsPack]
+                cardsPack: [...action.cardsPack]
             }
         }
         case CHANGE_PACK: {

@@ -12,7 +12,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { Pagination } from './Pagination'
 import { CardsPackResponseType } from '../../api/packs-api'
-import { Modal } from '../Modal'
+import { Modal } from '../Modal/Modal'
 
 
 

@@ -17,7 +17,11 @@
     pointer-events: all;
 }
 .modalContent {
-    background-color: rgb(255, 245, 110);
+    background-color: rgb(255, 253, 111);
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 50vw;
     height: 50vh;
     border-radius: 10px;

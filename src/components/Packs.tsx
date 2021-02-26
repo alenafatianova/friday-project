@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import styles from '../styles/Packs.module.css'
 import { TableComponent } from './Table/TableComponent'
 import { SearchField } from './Table/SearchField'
-import { Modal } from './Modal'
-import { ModalContainer } from './Table/ModalContainer'
+import { Modal } from './Modal/Modal'
+import { ModalContainer } from './Modal/ModalContainer'
 
 
 export const Packs = () => {
@@ -16,11 +16,14 @@ export const Packs = () => {
    
     return (
         <div className={styles.packsMainDiv}>
+           
          <div className={styles.tableContainer}>
+         
          <div><input className={styles.packsCheckbox} type="checkbox"/> My Packs </div>
+            <ModalContainer/>
             <SearchField />
             <TableComponent />
-           <ModalContainer/>
+           
          </div>
         </div>
     )

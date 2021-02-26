@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../styles/modal.css'
+import '../../styles/modal.css'
 
 type modalProps = {
     active: boolean
@@ -12,8 +12,7 @@ export const Modal: React.FC<modalProps> = ({active, setActive, children}) => {
         <div className={active ? 'modal active' : 'modal' } onClick={() => setActive(false)} >
         <div className={active ? 'modalContent active' : 'modalContent'} 
             onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
-              
-            {children}
+           <div> {children}</div>
         </div>
         </div>
         </>

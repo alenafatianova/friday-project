@@ -1,0 +1,10 @@
+.modalButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+}
+.skipModalButton, .answerModalButton {
+    width: 130px;
+    height: 50px;
+    font-size: 25px;
+}
