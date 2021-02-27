@@ -24,9 +24,10 @@ export const Cards = () => {
     // cardsId - params from route for get Id from params
     const {cardId} = useParams<{ cardId: string }>()
     const dispatch = useDispatch()
+    
     useEffect(() => {
         dispatch(getCardsThunk(pageSize, currentPage, cardId))
-    }, [pageSize, currentPage])
+    }, [pageSize, currentPage, cardId, dispatch])
     const addCardHandler = () => {
 
     }

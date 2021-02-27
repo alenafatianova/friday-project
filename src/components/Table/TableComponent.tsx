@@ -1,44 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableRow from '@material-ui/core/TableRow'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
-import {getPacksThunk} from '../../redux/reducers/cards-pack-reducer' 
-import { useDispatch, useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import { AppRootStateType } from '../../redux/store'
 import TableHead from '@material-ui/core/TableHead'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { Pagination } from './Pagination'
 import { CardsPackResponseType } from '../../api/packs-api'
-import { Modal } from '../Modal/Modal'
-
 
 
 export const TableComponent = () => {
     
-
-    const currentPage = useSelector<AppRootStateType, number>(state => state.packs.page)
-    const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const rows = useSelector<AppRootStateType, Array<CardsPackResponseType>>(state => state.packs.cardPacks)
-    const user_id = useSelector<AppRootStateType, string>(state => state.profile._id)
-    const dispatch = useDispatch()
-     
-    
-        useEffect(() => {
-            dispatch(getPacksThunk(currentPage, packsPerPage, user_id))
-        }, [])
-     
+      
     //----- initial state for table headers ------
-    const [headcells, setHeadCells] = useState([
+    const headcells = [
         {id: 'name', label: 'Name', disableSorting: true},
         {id: 'cardsCount', label: 'Cards Count', disableSorting: false},
         {id: 'updated', label: 'Updated', disableSorting: true},
         {id: 'url', label: 'URL', disableSorting: true},
         {id: 'actionUpdate', label: 'Actions',  disableSorting: true},
         {id: '', label: '',  disableSorting: true}
-    ])
+    ]
 
     const [order, setOrder] = useState<any>()
     const [orderBy, setOrderBy] = useState<any>()
@@ -109,7 +96,8 @@ export const TableComponent = () => {
            <Pagination />
                <Table className={classes.table} >
                <TableHead>
-                       {headcells.map(headcell => (
+                       {
+                        headcells.map(headcell => (
                            <TableCell key={headcell.id}>
                                <TableSortLabel 
                                 active={orderBy === headcell.id}

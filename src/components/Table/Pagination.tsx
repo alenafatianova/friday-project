@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentPageAC } from '../../redux/reducers/cards-pack-reducer'
 import { AppRootStateType } from '../../redux/store'
@@ -9,7 +9,6 @@ export const Pagination = () => {
     const totalPacksAmount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
     const currentPage = useSelector<AppRootStateType, number>(state => state.packs.page)
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
-    const [options, setOptions] = useState([5, 10,25])
     
     const pages = []
     const pagesAmount = Math.ceil(totalPacksAmount / packsPerPage)
@@ -17,9 +16,9 @@ export const Pagination = () => {
         pages.push(i)
     }
     const dispatch = useDispatch()
-    const onChangePageHandler = (currentPage: number) => {
+    const onChangePageHandler = useCallback((currentPage: number) => {
         dispatch(setCurrentPageAC(currentPage))
-    }
+    },[dispatch])
 
     return (
         <div>

@@ -23,8 +23,8 @@ export const ResetPassword = React.memo(() => {
 
     const setPassword = useCallback((newPassword: string, resetPasswordToken: string) => { 
         dispatch(setNewPasswordThunk(newPassword, resetPasswordToken)) 
-        setLoading(true)
-    },[])
+        setLoading(!loading)
+    },[dispatch, loading])
     
     const isLoading = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 

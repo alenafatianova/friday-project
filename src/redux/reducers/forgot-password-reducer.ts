@@ -1,7 +1,6 @@
-
 import { forgotPasswordAPI } from '../../api/forgot-password-api';
 import { Dispatch } from "redux";
-import { setAppStatusAC } from './app-reducer';
+
 
 
 export const initialForgotPasswordState: initialForgotPasswordStateType = {
@@ -16,8 +15,6 @@ export type initialForgotPasswordStateType = {
 
 const SEND_EMAIL = 'friday-project/forgot-password-reducer/SEND_EMAIL';
 const RESET_PASSWORD = 'friday-project/forgot-password-reducer/RESET_PASSWORD';
-const REQUEST_STATUS = 'friday-project/forgot-password-reducer/REQUEST_STATUS';
-
 
 export const forgotPasswordReducer = (state: initialForgotPasswordStateType = initialForgotPasswordState, action: actionsType) => {
     switch(action.type) {

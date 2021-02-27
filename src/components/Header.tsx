@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { NavLink} from 'react-router-dom'
 import styles from '../styles/header.module.css'
 import {useDispatch, useSelector} from "react-redux";
@@ -7,15 +7,15 @@ import {logoutTC} from "../redux/reducers/login-reducer";
 import {RequestStatusType} from "../redux/reducers/app-reducer";
 
 
-export const Header = () => {
+export const Header = React.memo(() => {
     const isLoggedIn=useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const isStatus=useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const  dispatch =useDispatch()
 
     // Обработчк кнопки вылогиниться
-    const logoutHandler=()=> {
+    const logoutHandler = useCallback(()=> {
         dispatch(logoutTC())
-    }
+    },[dispatch])
 
     // useEffect(()=> {
     //     dispatch(initializeAppTC())
@@ -47,4 +47,4 @@ export const Header = () => {
            </div>
         </div>
     )
-}
+})
