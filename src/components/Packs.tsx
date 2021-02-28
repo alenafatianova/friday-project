@@ -31,9 +31,7 @@ export const Packs = () => {
    
     return (
         <div className={styles.packsMainDiv}>
-           
          <div className={styles.tableContainer}>
-         
          <div>
              <input 
                 className={styles.packsCheckbox} type="checkbox"

@@ -16,5 +16,5 @@ export const Modal: React.FC<modalProps> = ({active, setActive, children}) => {
         </div>
         </div>
         </>
-    )
+    ) 
 }

@@ -11,7 +11,7 @@ export const ModalContainer = () => {
                 <Modal active={modalActive} setActive={setModalActive}>
                    <span> Questions are supposed to be here</span>
                    <div className={styles.modalButtons}>
-                    <button className={styles.skipModalButton} onClick={() =>setModalActive(false) }>skip</button>
+                    <button className={styles.skipModalButton} onClick={() => setModalActive(false) }>skip</button>
                     <button  className={styles.answerModalButton}>answer</button>
                    </div>
                 </Modal>

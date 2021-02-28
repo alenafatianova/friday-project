@@ -11,8 +11,11 @@ import TableHead from '@material-ui/core/TableHead'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { Pagination } from './Pagination'
 import { CardsPackResponseType } from '../../api/packs-api'
-import styles from '../../styles/table.module.css'
 import { deletePackThunk } from '../../redux/reducers/cards-pack-reducer'
+import { Modal } from '../Modal/Modal'
+import { ModalContainer } from '../Modal/ModalContainer'
+import { AddPackModalContainer } from '../Modal/AddPackModalContainer'
+
 
 
 export const TableComponent = () => {
@@ -93,13 +96,17 @@ export const TableComponent = () => {
     }
    
     const dispatch = useDispatch()
-    const deletePackHandle = useCallback((_id: string) => {
+    const deletePackHandle = useCallback((_id) => {
         dispatch(deletePackThunk(_id))  
     }, [dispatch])
+
+
+    const [active, setActive] = useState(false)
     return ( 
         <div>
            <TableContainer>
-         
+
+            
                <Table className={classes.table} >
                <TableHead>
                        {
@@ -114,7 +121,9 @@ export const TableComponent = () => {
                                </TableSortLabel> 
                            </TableCell>)) 
                        }
-                      <TableCell> <button className={styles.addButton}>Add</button></TableCell>
+                      <TableCell> 
+                          <AddPackModalContainer/>
+                        </TableCell>
                </TableHead>
                    <TableBody> 
                         {rowsAfterSorting().map((row => <TableRow>

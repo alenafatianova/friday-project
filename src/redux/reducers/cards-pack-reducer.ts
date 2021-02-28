@@ -99,7 +99,7 @@ export const getPacksThunk = (page: number, pageCount: number) =>  async(dispatc
 export const addPackThunk = (name: string) => async(dispatch: thunksType, getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
-    const user_id = getState().profile._id
+    const _id = getState().profile._id
     await packsAPI.addCardsPack(name)
         .then(res => {
             dispatch(getPacksThunk(page, pageCount))
