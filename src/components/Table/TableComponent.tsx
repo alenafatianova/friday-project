@@ -93,7 +93,7 @@ export const TableComponent = () => {
     return ( 
         <div>
            <TableContainer>
-           <Pagination />
+         
                <Table className={classes.table} >
                <TableHead>
                        {
@@ -121,6 +121,7 @@ export const TableComponent = () => {
                    </TableBody>
                </Table>
            </TableContainer>   
+           <Pagination />
         </div>
     )
 }

@@ -22,15 +22,21 @@ export const Pagination = () => {
 
     return (
         <div>
-          <div>
+        <div className={styles.paginationContainer}>
+          <div className={styles.pagination}>
+              <div className={styles.prevButton}>previous</div>
               {
                   pages.map(page => {
-                      return <span 
+                      return <li 
                         className={currentPage === page ? styles.selectedPage : ''} 
-                        onClick={() => onChangePageHandler(page)}>{page}</span>
+                        onClick={() => onChangePageHandler(page)}>
+                           <a href="#"> {page} </a> 
+                        </li>
                   })
               }
+               <div className={styles.nextButton}>next</div>
           </div>
+        </div>
         </div>
     )
 }
