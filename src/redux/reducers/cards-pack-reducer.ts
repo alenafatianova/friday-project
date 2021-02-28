@@ -72,9 +72,9 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
 
 //---- actions
 export const getCardsPacksAC = (cardPacks: CardsPackResponseType[]) => ({type: GET_PACKS,  cardPacks} as const)
-export const addCardsPackAC = (cardPacks: CardsPackResponseType[]) => ({type: ADD_PACK, cardPacks} as const)
-export const changeCardsPackAC = (_id: string, name: string) => ({type: CHANGE_PACK, _id, name} as const)
-export const deleteCardsPackAC = (_id: string) => ({type: DELETE_PACK, _id} as const)
+export const addPackAC = (cardPacks: CardsPackResponseType[]) => ({type: ADD_PACK, cardPacks} as const)
+export const changePackAC = (_id: string, name: string) => ({type: CHANGE_PACK, _id, name} as const)
+export const deletePackAC = (_id: string) => ({type: DELETE_PACK, _id} as const)
 export const setCurrentPageAC = (page: number) => ({type: SET_CURRENT_PAGE, page} as const)
 export const searchByNameAC = (packName: string) => ({type: SEARCH_BY_NAME, packName} as const)
 export const setPacksSizeAC = (pageCount: number) => ({type: SET_PACKS_SIZE, pageCount} as const)
@@ -84,10 +84,10 @@ export const setMyPacksAC = (myPacks: boolean) => ({type: SET_MY_PACKS, myPacks}
 
 type thunksType = ThunkDispatch<AppRootStateType, {}, cardsPacksActiontype>
 
-export const getPacksThunk = (page: number, pageCount: number, user_id: string) =>  async(dispatch: thunksType, getState: () => AppRootStateType) => {
+export const getPacksThunk = (page: number, pageCount: number) =>  async(dispatch: thunksType, getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
-    await packsAPI.getCardsPack(page, pageCount, user_id)
+    await packsAPI.getCardsPack(page, pageCount)
         .then(res => {
             dispatch(getCardsPacksAC(res.data.cardPacks))
         })
@@ -96,37 +96,36 @@ export const getPacksThunk = (page: number, pageCount: number, user_id: string) 
     }) 
 }
 
-export const addCardsThunk = (name: string) => async(dispatch: thunksType, getState: () => AppRootStateType) => {
+export const addPackThunk = (name: string) => async(dispatch: thunksType, getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
     const user_id = getState().profile._id
     await packsAPI.addCardsPack(name)
         .then(res => {
-            dispatch(getPacksThunk(page, pageCount, user_id))
+            dispatch(getPacksThunk(page, pageCount))
         })
         .catch(err =>  alert(err))
 }
 
-export const updateCardsThunk = (_id: string, name: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
+export const updatePackThunk = (_id: string, name: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
-    const user_id = getState().profile._id
+    const _id = getState().profile._id
     await packsAPI.changeCardsPack(_id, name)
         .then(res => {
-            dispatch(changeCardsPackAC(res.data._id, res.data.name))
-            dispatch(getPacksThunk(page, pageCount, user_id))
+            dispatch(changePackAC(res.data._id, res.data.name))
+            dispatch(getPacksThunk(page, pageCount))
         })
         .catch(err => alert(err))
     
 }
-export const deleteCardsThunk = (_id: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
+export const deletePackThunk = (_id: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
-    const user_id = getState().profile._id
     await packsAPI.deleteCardsPack(_id)
         .then(res => {
-            dispatch(deleteCardsPackAC(res.data._id))
-            dispatch(getPacksThunk(page, pageCount, user_id))
+            dispatch(deletePackAC(res.data._id))
+            dispatch(getPacksThunk(page, pageCount))
         })
        .catch(err => alert(err)) 
 }
@@ -135,9 +134,9 @@ export const deleteCardsThunk = (_id: string) => async(dispatch: thunksType,  ge
 //----action types
 export type cardsPacksActiontype = 
     | ReturnType<typeof getCardsPacksAC> 
-    | ReturnType<typeof addCardsPackAC>
-    | ReturnType<typeof changeCardsPackAC>
-    | ReturnType<typeof deleteCardsPackAC>
+    | ReturnType<typeof addPackAC>
+    | ReturnType<typeof changePackAC>
+    | ReturnType<typeof deletePackAC>
     | ReturnType<typeof searchByNameAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setPacksSizeAC>

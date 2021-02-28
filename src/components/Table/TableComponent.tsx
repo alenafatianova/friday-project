@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableRow from '@material-ui/core/TableRow'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
-import {  useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from '../../redux/store'
 import TableHead from '@material-ui/core/TableHead'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { Pagination } from './Pagination'
 import { CardsPackResponseType } from '../../api/packs-api'
+import styles from '../../styles/table.module.css'
+import { deletePackThunk } from '../../redux/reducers/cards-pack-reducer'
 
 
 export const TableComponent = () => {
@@ -24,7 +26,7 @@ export const TableComponent = () => {
         {id: 'updated', label: 'Updated', disableSorting: true},
         {id: 'url', label: 'URL', disableSorting: true},
         {id: 'actionUpdate', label: 'Actions',  disableSorting: true},
-        {id: '', label: '',  disableSorting: true}
+        {id: '', label: '',  disableSorting: true},
     ]
 
     const [order, setOrder] = useState<any>()
@@ -36,14 +38,14 @@ export const TableComponent = () => {
             marginTop: theme.spacing(6),
             '& thead th': {
                 fontWeight: '600',
-                color: theme.palette.primary.contrastText,  
-                backgroundColor: theme.palette.primary.light,
+                color: '#7f8594' ,  
+                backgroundColor:  '#e8fff6', 
             },
             '& tbody td': {
                 fontWeight: '300',
             },
             '& tbody tr:hover': {
-                backgroundColor: '#fffbf2',
+                backgroundColor: '#ededed',
                 cursor: 'pointer'
             },
         },
@@ -89,7 +91,11 @@ export const TableComponent = () => {
         setOrder(isAsc ? 'desc' : 'asc') 
         setOrderBy(cellID)
     }
-
+   
+    const dispatch = useDispatch()
+    const deletePackHandle = useCallback((_id: string) => {
+        dispatch(deletePackThunk(_id))  
+    }, [dispatch])
     return ( 
         <div>
            <TableContainer>
@@ -108,6 +114,7 @@ export const TableComponent = () => {
                                </TableSortLabel> 
                            </TableCell>)) 
                        }
+                      <TableCell> <button className={styles.addButton}>Add</button></TableCell>
                </TableHead>
                    <TableBody> 
                         {rowsAfterSorting().map((row => <TableRow>
@@ -116,7 +123,8 @@ export const TableComponent = () => {
                             <TableCell key='updated'>{row.updated}</TableCell>
                             <TableCell key='url'></TableCell>
                             <TableCell><button>Update</button></TableCell>
-                            <TableCell><button>Delete</button></TableCell>
+                            <TableCell><button onClick={() => deletePackHandle}>Delete</button></TableCell>
+                            <TableCell></TableCell>
                         </TableRow>))} 
                    </TableBody>
                </Table>

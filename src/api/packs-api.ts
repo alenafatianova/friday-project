@@ -23,8 +23,8 @@ export type PacksResponseType = {
 }
 
 export const packsAPI = {
-    getCardsPack(page?:number, pageCount?: number, packName?: string, min?: number, max?: number,  user_id?: string  ) {
-        return instance.get<PacksResponseType>(`cards/pack?`, {params: {page, pageCount, user_id, packName}})
+    getCardsPack(page?:number, pageCount?: number, packName?: string, min?: number, max?: number  ) {
+        return instance.get<PacksResponseType>(`cards/pack?`, {params: {page, pageCount, packName}})
     },
     addCardsPack(name: string) {
         return  instance.post<CardsPackResponseType>('cards/pack', {cardsPack: {name}})
@@ -33,6 +33,6 @@ export const packsAPI = {
         return instance.put<CardsPackResponseType>('cards/pack', {cardsPack: {_id, name}})
     },
     deleteCardsPack(id: string) {
-      return instance.delete<CardsPackResponseType>(`cards/pack`, {params: {id}})
+      return instance.delete<CardsPackResponseType>(`cards/pack?id=${id}`) 
     }
 }

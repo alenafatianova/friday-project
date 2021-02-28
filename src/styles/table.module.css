@@ -1,0 +1,8 @@
+.addButton {
+    width: 100px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(255, 227, 68);
+    color: #7f8594;
+}
