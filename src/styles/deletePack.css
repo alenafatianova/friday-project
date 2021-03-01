@@ -1,0 +1,18 @@
+.deletePackSpan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+.modalButtons {
+    display: flex;
+    margin-top: 50px;
+}
+.deleteHandlerButton, .closeHandlerButton {
+    width: 150px;
+    height: 70px;
+    font-size: 30px;
+    border: none;
+    background-color: #fff;
+    margin: 50px;
+}

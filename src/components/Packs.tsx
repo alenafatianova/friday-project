@@ -35,7 +35,6 @@ export const Packs = () => {
                 className={styles.packsCheckbox} type="checkbox"
                 // onChange={onMyPacksChecked}
          /> My Packs </div>
-            <ModalContainer/>
             <SearchField />
             <TableComponent />
            

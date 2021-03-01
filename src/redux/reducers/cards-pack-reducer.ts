@@ -80,7 +80,7 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
 export const getCardsPacksAC = (cardPacks: CardsPackResponseType[]) => ({type: GET_PACKS,  cardPacks} as const)
 export const addPackAC = (name: string) => ({type: ADD_PACK, name} as const)
 export const changePackAC = (_id: string, name: string) => ({type: CHANGE_PACK, _id, name} as const)
-export const deletePackAC = (_id: string) => ({type: DELETE_PACK, _id} as const)
+export const deletePackAC = (id: string) => ({type: DELETE_PACK, id} as const)
 export const setCurrentPageAC = (page: number) => ({type: SET_CURRENT_PAGE, page} as const)
 export const searchByNameAC = (packName: string) => ({type: SEARCH_BY_NAME, packName} as const)
 export const setPacksSizeAC = (pageCount: number) => ({type: SET_PACKS_SIZE, pageCount} as const)
@@ -90,10 +90,7 @@ export const setMyPacksAC = (myPacks: boolean) => ({type: SET_MY_PACKS, myPacks}
 
 type thunksType = ThunkDispatch<AppRootStateType, {}, cardsPacksActiontype>
 
-export const getPacksThunk = (page: number, pageCount: number, id: string) =>  async(dispatch: thunksType, getState: () => AppRootStateType) => {
-    const page = getState().packs.page
-    const pageCount = getState().packs.pageCount
-    const id = getState().profile._id
+export const getPacksThunk = (page: number, pageCount: number, id?: string) =>  async(dispatch: thunksType, getState: () => AppRootStateType) => {
     await packsAPI.getCardsPack(page, pageCount, id)
         .then(res => {
             dispatch(getCardsPacksAC(res.data.cardPacks))
@@ -126,14 +123,13 @@ export const updatePackThunk = (_id: string, name: string) => async(dispatch: th
         .catch(err => alert(err))
     
 }
-export const deletePackThunk = (_id: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
+export const deletePackThunk = (id: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
-    const id = getState().profile._id
-    await packsAPI.deleteCardsPack(_id)
+    await packsAPI.deleteCardsPack(id) 
         .then(res => {
-            dispatch(deletePackAC(res.data._id))
-            dispatch(getPacksThunk(page, pageCount, id))
+            
+            dispatch(getPacksThunk(page, pageCount))
         })
        .catch(err => alert(err)) 
 }

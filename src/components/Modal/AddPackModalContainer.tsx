@@ -9,17 +9,14 @@ type addModalProps = {
 
 export const AddPackModalContainer: React.FC<addModalProps> = ({newCardsPack}) => {
     const [modalActive, setModalActive] = useState(false)
-    const [packName, setPackName] = useState<string>()
+    const [packName, setPackName] = useState<string>('')
    
     const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
         setPackName(e.currentTarget.value)
     }
     const onAddPackHandler = () => {
-        if(packName) {
-            newCardsPack(packName)
-            setPackName('')
-        }
-        
+        newCardsPack(packName)
+        setPackName('')  
     }
     
     return (

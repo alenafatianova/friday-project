@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, {useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
@@ -12,15 +12,16 @@ import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { Pagination } from './Pagination'
 import { CardsPackResponseType } from '../../api/packs-api'
 import { addPackThunk, deletePackThunk } from '../../redux/reducers/cards-pack-reducer'
-import { Modal } from '../Modal/Modal'
 import { AddPackModalContainer } from '../Modal/AddPackModalContainer'
+import { DeletePackModalContainer } from '../Modal/DeletePackModalContainer'
+import { useParams } from 'react-router-dom'
 
 
 
 export const TableComponent = () => {
     
     const rows = useSelector<AppRootStateType, Array<CardsPackResponseType>>(state => state.packs.cardPacks)
-      
+     
     //----- initial state for table headers ------
     const headcells = [
         {id: 'name', label: 'Name', disableSorting: true},
@@ -95,11 +96,12 @@ export const TableComponent = () => {
     }
    
     const dispatch = useDispatch()
-    const deletePackHandle = useCallback((_id) => {
-        dispatch(deletePackThunk(_id))  
-    }, [dispatch])
+    
     const newCardsPack = (name: string) => {
         dispatch(addPackThunk(name))
+    }
+    const deletePackHandle = (id: string) => {
+        dispatch(deletePackThunk(id))   
     }
     return ( 
         <div>
@@ -129,7 +131,9 @@ export const TableComponent = () => {
                             <TableCell key='updated'>{row.updated}</TableCell>
                             <TableCell key='url'></TableCell>
                             <TableCell><button>Update</button></TableCell>
-                            <TableCell><button onClick={() => deletePackHandle}>Delete</button></TableCell>
+                            <TableCell>
+                                <DeletePackModalContainer deletePack={deletePackHandle}  />
+                            </TableCell>
                             <TableCell></TableCell>
                         </TableRow>))} 
                    </TableBody>
