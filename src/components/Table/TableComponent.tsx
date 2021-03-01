@@ -11,9 +11,8 @@ import TableHead from '@material-ui/core/TableHead'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { Pagination } from './Pagination'
 import { CardsPackResponseType } from '../../api/packs-api'
-import { deletePackThunk } from '../../redux/reducers/cards-pack-reducer'
+import { addPackThunk, deletePackThunk } from '../../redux/reducers/cards-pack-reducer'
 import { Modal } from '../Modal/Modal'
-import { ModalContainer } from '../Modal/ModalContainer'
 import { AddPackModalContainer } from '../Modal/AddPackModalContainer'
 
 
@@ -99,14 +98,12 @@ export const TableComponent = () => {
     const deletePackHandle = useCallback((_id) => {
         dispatch(deletePackThunk(_id))  
     }, [dispatch])
-
-
-    const [active, setActive] = useState(false)
+    const newCardsPack = (name: string) => {
+        dispatch(addPackThunk(name))
+    }
     return ( 
         <div>
            <TableContainer>
-
-            
                <Table className={classes.table} >
                <TableHead>
                        {
@@ -122,7 +119,7 @@ export const TableComponent = () => {
                            </TableCell>)) 
                        }
                       <TableCell> 
-                          <AddPackModalContainer/>
+                          <AddPackModalContainer newCardsPack={newCardsPack} />
                         </TableCell>
                </TableHead>
                    <TableBody> 
@@ -137,7 +134,7 @@ export const TableComponent = () => {
                         </TableRow>))} 
                    </TableBody>
                </Table>
-           </TableContainer>   
+           </TableContainer>    
            <Pagination />
         </div>
     )

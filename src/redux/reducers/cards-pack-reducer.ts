@@ -9,7 +9,7 @@ export const initialPacksState: initialPacksStateType = {
     minCardsCount: 1, //-- минимальное кол-во карточек в колоде
     page: 1, //-- кол-во страниц, currentPage
     pageCount: 10, //--кол-во элементов на странице, perPage/pageSize
-    packName: '',
+    name: '',
     myPacks: false
 } 
 export type initialPacksStateType = {
@@ -19,7 +19,7 @@ export type initialPacksStateType = {
     minCardsCount: number
     page: number
     pageCount: number
-    packName: string
+    name: string
     myPacks: boolean
 }
 
@@ -38,6 +38,12 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
             return {
                 ...state, 
                 cardPacks: action.cardPacks  
+            }
+        }
+        case ADD_PACK: {
+            return {
+                ...state,
+                name: action.name 
             }
         }
         case SET_MY_PACKS: {
@@ -72,7 +78,7 @@ export const PacksReducer = (state: initialPacksStateType = initialPacksState, a
 
 //---- actions
 export const getCardsPacksAC = (cardPacks: CardsPackResponseType[]) => ({type: GET_PACKS,  cardPacks} as const)
-export const addPackAC = (cardPacks: CardsPackResponseType[]) => ({type: ADD_PACK, cardPacks} as const)
+export const addPackAC = (name: string) => ({type: ADD_PACK, name} as const)
 export const changePackAC = (_id: string, name: string) => ({type: CHANGE_PACK, _id, name} as const)
 export const deletePackAC = (_id: string) => ({type: DELETE_PACK, _id} as const)
 export const setCurrentPageAC = (page: number) => ({type: SET_CURRENT_PAGE, page} as const)
@@ -84,25 +90,26 @@ export const setMyPacksAC = (myPacks: boolean) => ({type: SET_MY_PACKS, myPacks}
 
 type thunksType = ThunkDispatch<AppRootStateType, {}, cardsPacksActiontype>
 
-export const getPacksThunk = (page: number, pageCount: number) =>  async(dispatch: thunksType, getState: () => AppRootStateType) => {
+export const getPacksThunk = (page: number, pageCount: number, id: string) =>  async(dispatch: thunksType, getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
-    await packsAPI.getCardsPack(page, pageCount)
+    const id = getState().profile._id
+    await packsAPI.getCardsPack(page, pageCount, id)
         .then(res => {
             dispatch(getCardsPacksAC(res.data.cardPacks))
         })
     .catch((err) => {
         alert(err) 
-    }) 
+    })  
 }
 
 export const addPackThunk = (name: string) => async(dispatch: thunksType, getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
-    const _id = getState().profile._id
+    const id = getState().profile._id
     await packsAPI.addCardsPack(name)
         .then(res => {
-            dispatch(getPacksThunk(page, pageCount))
+            dispatch(getPacksThunk(page, pageCount, id))
         })
         .catch(err =>  alert(err))
 }
@@ -110,11 +117,11 @@ export const addPackThunk = (name: string) => async(dispatch: thunksType, getSta
 export const updatePackThunk = (_id: string, name: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
-    const _id = getState().profile._id
+    const id = getState().profile._id
     await packsAPI.changeCardsPack(_id, name)
         .then(res => {
             dispatch(changePackAC(res.data._id, res.data.name))
-            dispatch(getPacksThunk(page, pageCount))
+            dispatch(getPacksThunk(page, pageCount, id))
         })
         .catch(err => alert(err))
     
@@ -122,10 +129,11 @@ export const updatePackThunk = (_id: string, name: string) => async(dispatch: th
 export const deletePackThunk = (_id: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
+    const id = getState().profile._id
     await packsAPI.deleteCardsPack(_id)
         .then(res => {
             dispatch(deletePackAC(res.data._id))
-            dispatch(getPacksThunk(page, pageCount))
+            dispatch(getPacksThunk(page, pageCount, id))
         })
        .catch(err => alert(err)) 
 }
@@ -142,3 +150,4 @@ export type cardsPacksActiontype =
     | ReturnType<typeof setPacksSizeAC>
     | ReturnType <typeof setMyPacksAC>
     
+ 

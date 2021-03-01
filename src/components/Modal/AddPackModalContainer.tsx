@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import styles from '../../styles/addModalContainer.module.css'
-import { addPackThunk } from '../../redux/reducers/cards-pack-reducer'
+import React, { ChangeEvent, useState } from 'react'
+import  '../../styles/addModal.css'
 import { Modal } from './Modal'
  
 
+type addModalProps = {
+    newCardsPack: (name: string) => void
+}
 
-
-export const AddPackModalContainer = () => {
+export const AddPackModalContainer: React.FC<addModalProps> = ({newCardsPack}) => {
     const [modalActive, setModalActive] = useState(false)
-    const dispatch = useDispatch()
-    const onAddPackHandler = (name: string) => {
-        dispatch(addPackThunk(name)) 
+    const [packName, setPackName] = useState<string>()
+   
+    const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+        setPackName(e.currentTarget.value)
     }
+    const onAddPackHandler = () => {
+        if(packName) {
+            newCardsPack(packName)
+            setPackName('')
+        }
+        
+    }
+    
     return (
         <div>
             <div>
@@ -21,11 +30,13 @@ export const AddPackModalContainer = () => {
                     <input 
                         type="text" 
                         placeholder='New pack'
-                        className={styles.newPackName}
+                        className={'newPackName'}
+                        onChange={onChangeName}
+                        value={packName}
                         />
-                    <div>
-                        <button onChange={() => onAddPackHandler}>Add</button> 
-                        <button onClick={() => setModalActive(false)}>Close</button>
+                    <div className='modalButtons'>
+                        <button className='addHandlerButton' onClick={onAddPackHandler}>Add</button> 
+                        <button className='closeHandlerButton' onClick={() => setModalActive(false)}>Close</button>
                     </div>
                 </Modal>
             </div>

@@ -1,0 +1,17 @@
+.newPackName {
+    width: 50vw;
+    height: 70px;
+    font-size: 30px;
+    border: none;
+}
+.modalButtons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+.addHandlerButton, .closeHandlerButton {
+    width: 100px;
+    height: 70px;
+    font-size: 30px;
+
+}

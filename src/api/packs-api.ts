@@ -23,8 +23,8 @@ export type PacksResponseType = {
 }
 
 export const packsAPI = {
-    getCardsPack(page?:number, pageCount?: number, packName?: string, min?: number, max?: number  ) {
-        return instance.get<PacksResponseType>(`cards/pack?`, {params: {page, pageCount, packName}})
+    getCardsPack(page?:number, pageCount?: number, id?: string, packName?: string, min?: number, max?: number  ) {
+        return instance.get<PacksResponseType>(`cards/pack?`, {params: {page, pageCount, id}})
     },
     addCardsPack(name: string) {
         return  instance.post<CardsPackResponseType>('cards/pack', {cardsPack: {name}})
