@@ -1,21 +1,15 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { CardsPackResponseType } from '../../api/packs-api'
+import React, { FC, useState } from 'react'
 import { Modal } from './Modal'
 import '../../styles/deletePack.css'
 
 
-type deletePackProps = {
+
+type props = {
     deletePack: (id: string) => void
 }
-
-export const DeletePackModalContainer: React.FC<deletePackProps> = ({deletePack}) => {
+export const DeletePackModalContainer: FC<props> = ({deletePack}) => {
     const [activeModal, setActiveModal] = useState<boolean>(false)
-    const id = useSelector((state: CardsPackResponseType) => state._id)
-    const onDeletPack = () => {
-        deletePack(id)
-    }
-    
+    const id = ''
     return (
         <div>
             <div>
@@ -23,7 +17,7 @@ export const DeletePackModalContainer: React.FC<deletePackProps> = ({deletePack}
                 <Modal active={activeModal} setActive={setActiveModal}>
                    <span className='deletePackSpan'>Delete this pack?</span>
                    <div className='modalButtons'>
-                        <button className='deleteHandlerButton' onClick={() => onDeletPack}>Delete</button>
+                        <button className='deleteHandlerButton' onClick={() => deletePack(id)}>Delete</button>
                         <button className='closeHandlerButton' onClick={() => setActiveModal(false)}>Close</button>
                    </div>
                 </Modal>

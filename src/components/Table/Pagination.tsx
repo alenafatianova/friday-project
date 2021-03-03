@@ -30,7 +30,7 @@ export const Pagination = () => {
                       return <li 
                         className={currentPage === page ? styles.selectedPage : ''} 
                         onClick={() => onChangePageHandler(page)}>
-                           <a href="#"> {page} </a> 
+                           <a href="page"> {page} </a> 
                         </li>
                   })
               }
