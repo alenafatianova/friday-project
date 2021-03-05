@@ -14,8 +14,8 @@ export const Login = () => {
     const isStatus = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 
     //--проверка email, password forms
-    const [emailValue, setEmailValue] = useState<string>('alyena.fatianova@gmail.com')
-    const [passwordValue, setPasswordValue] = useState<string>('123456789')
+    const [emailValue, setEmailValue] = useState<string>('nya-admin@nya.nya')
+    const [passwordValue, setPasswordValue] = useState<string>('1qazxcvBG')
     const [emailEmpty, setEmailEmpty] = useState<boolean>(false)
     const [passwordEmpty, setPasswordEmpty] = useState<boolean>(false)
     const [rememberMeValue, setRememberMeValue] = useState<boolean>(false)

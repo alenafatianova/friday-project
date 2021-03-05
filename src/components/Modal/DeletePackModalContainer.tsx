@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react'
 import { Modal } from './Modal'
 import '../../styles/deletePack.css'
+import { useParams } from 'react-router-dom'
 
 
 
@@ -9,7 +10,7 @@ type props = {
 }
 export const DeletePackModalContainer: FC<props> = ({deletePack}) => {
     const [activeModal, setActiveModal] = useState<boolean>(false)
-    const id = ''
+    const {id} = useParams<{id: string}>()
     return (
         <div>
             <div>

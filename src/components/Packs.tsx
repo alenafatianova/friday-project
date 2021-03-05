@@ -12,12 +12,12 @@ export const Packs = () => {
   
     const page = useSelector<AppRootStateType, number>(state => state.packs.page)
     const pageCount = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
-    const userID = useSelector<AppRootStateType, string>(state => state.profile._id)
+    //const userID = useSelector<AppRootStateType, string>(state => state.profile._id)
 
     const dispatch = useDispatch() 
     useEffect(() => {
-        dispatch(getPacksThunk(page, pageCount, userID))
-    }, [dispatch, page, pageCount, userID])
+        dispatch(getPacksThunk(page, pageCount))
+    }, [dispatch, page, pageCount])
 
  
    

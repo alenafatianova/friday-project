@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentPageAC } from '../../redux/reducers/cards-pack-reducer'
+import {setCurrentPageAC } from '../../redux/reducers/cards-pack-reducer'
 import { AppRootStateType } from '../../redux/store'
 import styles from '../../styles/pagination.module.css'
 
@@ -9,6 +9,7 @@ export const Pagination = () => {
     const totalPacksAmount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
     const currentPage = useSelector<AppRootStateType, number>(state => state.packs.page)
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
+    
     
     const pages = []
     const pagesAmount = Math.ceil(totalPacksAmount / packsPerPage)
@@ -20,17 +21,19 @@ export const Pagination = () => {
         dispatch(setCurrentPageAC(currentPage))
     },[dispatch])
 
+     
+
     return (
         <div>
         <div className={styles.paginationContainer}>
           <div className={styles.pagination}>
               <div className={styles.prevButton}>previous</div>
               {
-                  pages.map(page => {
+                  pages.map(page => { 
                       return <li 
                         className={currentPage === page ? styles.selectedPage : ''} 
                         onClick={() => onChangePageHandler(page)}>
-                           <a href="page"> {page} </a> 
+                           <a href="#"> {page} </a> 
                         </li>
                   })
               }
