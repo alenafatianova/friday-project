@@ -129,7 +129,7 @@ export const TableComponent = React.memo(() => {
                             const onDelete = () => {
                                 dispatch(deletePackThunk(row._id))
                             }
-                            const updatePack = () => {
+                            const onUpdatePack = () => {
                                 dispatch(updatePackThunk(row._id, row.name))
                             }
                         return <TableRow>
@@ -137,13 +137,12 @@ export const TableComponent = React.memo(() => {
                             <TableCell key='cards-count'>{row.cardsCount}</TableCell>
                             <TableCell key='updated'>{row.updated}</TableCell>
                             <TableCell key='url'></TableCell>
-                            <TableCell><button onClick={updatePack}>Update</button></TableCell>
-                            <TableCell><button onClick={onDelete}>Delete</button></TableCell>
+                            <TableCell><button onClick={onUpdatePack}>Update</button></TableCell>
                             <TableCell>
-                           
+                            <DeletePackModalContainer deletePack={onDelete}/> 
                             </TableCell>
                             <TableCell></TableCell>
-                        </TableRow>}))}  
+                        </TableRow>}))}   
                    </TableBody>
                </Table>
            </TableContainer>    

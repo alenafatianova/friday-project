@@ -3,22 +3,7 @@ import { packsAPI} from "../../api/packs-api";
 import { ThunkDispatch } from 'redux-thunk';
 
 export const initialPacksState: initialPacksStateType = {
-    cardPacks: [
-        {
-            user_id: "",  		
-            _id: "",
-            name: '',
-            path: '/def',
-            grade: 0,
-            shots: 0,
-            rating: 0,
-            type: 'pack',
-            created: '',
-            updated: '',
-            cardsCount: 10,
-            __v: 0
-        }
-    ], //-- список всех packs
+    cardPacks: [] as CardsPackResponseType[], //-- список всех packs
     cardPacksTotalCount: 50, //-- количество колод 
     maxCardsCount: 10,
     minCardsCount: 1, //-- минимальное кол-во карточек в колоде
@@ -111,10 +96,7 @@ export const setMyPacksAC = (myPacks: boolean) => ({type: SET_MY_PACKS, myPacks}
 
 type thunksType = ThunkDispatch<AppRootStateType, {}, cardsPacksActiontype>
 
-export const getPacksThunk = () =>  async(dispatch: thunksType, getState: () => AppRootStateType) => {
-   const page = getState().packs.page
-   const pageCount = getState().packs.pageCount
-   const user_id = getState().profile._id
+export const getPacksThunk = (page: number, pageCount: number, user_id: string) =>  async(dispatch: thunksType, getState: () => AppRootStateType) => {
     await packsAPI.getCardsPack(page, pageCount, user_id)
         .then(res => {
             dispatch(getCardsPacksAC(res.data.cardPacks))
@@ -125,26 +107,35 @@ export const getPacksThunk = () =>  async(dispatch: thunksType, getState: () => 
 }
 
 export const addPackThunk = (name: string) => async(dispatch: thunksType, getState: () => AppRootStateType) => {
+    const page = getState().packs.page
+   const pageCount = getState().packs.pageCount
+   const user_id = getState().profile._id
     await packsAPI.addCardsPack(name)
         .then(res => {
             dispatch(addPackAC(res.data.name))
-            dispatch(getPacksThunk())
+            dispatch(getPacksThunk(page, pageCount, user_id))
         })
         .catch(err =>  alert(err))
 }
 
 export const updatePackThunk = (_id: string, name: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
+    const page = getState().packs.page
+    const pageCount = getState().packs.pageCount
+    const user_id = getState().profile._id
     await packsAPI.changeCardsPack(_id, name)
         .then(res => {
-            dispatch(getPacksThunk())
+            dispatch(getPacksThunk(page, pageCount, user_id))
         })
         .catch(err => alert(err))
     
 }
 export const deletePackThunk = (id: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
+    const page = getState().packs.page
+    const pageCount = getState().packs.pageCount
+    const user_id = getState().profile._id
     await packsAPI.deleteCardsPack(id)  
         .then(res => {
-            dispatch(getPacksThunk())
+            dispatch(getPacksThunk(page, pageCount, user_id))
         })
        .catch(err => alert(err)) 
 }
