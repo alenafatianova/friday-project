@@ -16,7 +16,7 @@ export const SearchField = React.memo(() => {
     return (
         <div>
            <form>
-                <input placeholder='Search' onChange={searchInputHandler} />
+                <input placeholder='Search' onClick={() => searchInputHandler} />
                 <button 
                     type='submit'
                     className={styles.searchButton}

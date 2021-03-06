@@ -9,15 +9,11 @@ import { AppRootStateType } from '../redux/store'
 
 
 export const Packs = () => {
-  
-    const page = useSelector<AppRootStateType, number>(state => state.packs.page)
-    const pageCount = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
-    //const userID = useSelector<AppRootStateType, string>(state => state.profile._id)
 
     const dispatch = useDispatch() 
     useEffect(() => {
-        dispatch(getPacksThunk(page, pageCount))
-    }, [dispatch, page, pageCount])
+        dispatch(getPacksThunk())
+    }, [dispatch])
 
  
    
@@ -30,7 +26,6 @@ export const Packs = () => {
          /> My Packs </div>
             <SearchField />
             <TableComponent />
-           
          </div>
         </div>
     )

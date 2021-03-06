@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react'
 import { Modal } from './Modal'
 import '../../styles/deletePack.css'
 import { useParams } from 'react-router-dom'
+import { CardsPackResponseType } from '../../redux/reducers/cards-pack-reducer'
 
 
 
@@ -11,6 +12,7 @@ type props = {
 export const DeletePackModalContainer: FC<props> = ({deletePack}) => {
     const [activeModal, setActiveModal] = useState<boolean>(false)
     const {id} = useParams<{id: string}>()
+    
     return (
         <div>
             <div>

@@ -1,100 +1,153 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableRow from '@material-ui/core/TableRow'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
-import TablePagination from '@material-ui/core/TablePagination'
-import TableFooter from '@material-ui/core/TableFooter'
 import { AppRootStateType } from '../../redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { TableHead, TableSortLabel } from '@material-ui/core'
-import { getCardsThunk } from '../../redux/reducers/card-reducer'
+import { addCardsThunk, deleteCardsThunk, getCardsThunk } from '../../redux/reducers/card-reducer'
 import { ResponseTypeCardsData } from '../../api/card-api'
-import { useParams } from 'react-router-dom'
+import { Pagination } from './Pagination'
+import { AddPackModalContainer } from '../Modal/AddPackModalContainer'
+import { AddNewCardModal } from '../Modal/AddNewCardModal'
 
 
 
 export const TableCardsComponent = () => {
    
-    const [cardsHeadCells, setCardsHeadCells] = useState([
+    const cards = useSelector<AppRootStateType, ResponseTypeCardsData[]>(state => state.cards.cards)
+   
+    //----- initial state for table headers ------
+    const cardsCells = [
         {id: 'question', label: 'Question', disableSorting: true},
-        {id: 'answer', label: 'Answer'},
+        {id: 'answer', label: 'Answer', disableSorting: false},
         {id: 'grade', label: 'Grade', disableSorting: true},
-        {id: 'updated', label: 'Updated', disableSorting: true},
-        {id: 'url', label: 'URL',  disableSorting: true},
-        {id: 'actions', label: 'Actions',  disableSorting: true}
-    ])
+        {id: 'updated', label: 'updated',  disableSorting: true},
+        {id: 'url', label: 'URL', disableSorting: true},
+        {id: '', label: '',  disableSorting: true},
+    ]
 
+    const [order, setOrder] = useState<any>()
+    const [orderBy, setOrderBy] = useState<any>()
 
-    const cardsSize = useSelector<AppRootStateType, number>(state => state.cards.pageSize)
-    const currentPage = useSelector<AppRootStateType, number>(state => state.cards.pageCurrent)
-    const {cardId} = useParams<{ cardId: string }>()
-    const dispatch = useDispatch() 
-    
-    useEffect(() => {
-        dispatch(getCardsThunk(cardsSize, currentPage, cardId))    
-    }, [])
-
-     //--- overriding default table styles ------
-     const useStyles = makeStyles(theme => ({
+    //--- overriding default table styles ------
+    const useStyles = makeStyles(theme => ({
         table: {
-            marginTop: theme.spacing(3),
+            marginTop: theme.spacing(6),
             '& thead th': {
                 fontWeight: '600',
-                color: theme.palette.primary.contrastText,  
-                backgroundColor: theme.palette.primary.light
+                color: '#7f8594' ,  
+                backgroundColor:  '#e8fff6', 
             },
             '& tbody td': {
                 fontWeight: '300',
             },
             '& tbody tr:hover': {
-                backgroundColor: '#fffbf2',
+                backgroundColor: '#ededed',
                 cursor: 'pointer'
             },
         },
     }))
     const classes = useStyles();
+  
+  function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
 
-    return (
+  type Order = 'asc' | 'desc';
+  
+  function getComparator<Key extends keyof any>(
+    order: Order,
+    orderBy: Key,
+  ): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
+    return order === 'desc'
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
+
+  function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
+    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+  }
+ 
+//    const rowsAfterSorting = () => {
+//        return stableSort(cards, getComparator(order, orderBy))
+//    }
+    const handleSortRequest = (cellID: string) => {
+        const isAsc = orderBy === cellID && order === 'asc'
+        setOrder(isAsc ? 'desc' : 'asc') 
+        setOrderBy(cellID)
+    }
+   
+    const dispatch = useDispatch()
+    
+    const newCard = useCallback((cardsPack_id: string, question: string, answer: string) => {
+        dispatch(addCardsThunk(cardsPack_id, question, answer))
+    }, [dispatch])
+
+    
+    const onDeleteCard = (cardsPack_id: string,_id: string) => {
+        dispatch(deleteCardsThunk(cardsPack_id, _id))
+    }
+    
+    return ( 
         <div>
-             <TableContainer>
-           {/* <TablePagination
-                    rowsPerPageOptions={pageOptions}
-                    component='div'
-                    count={rows.length} 
-                    rowsPerPage={packsPerPage}
-                    page={pageSize}
-                    onChangePage={() => handleChangePage}
-                    onChangeRowsPerPage={handleRowsPerPage}
-                   /> */}
+           <TableContainer>
                <Table className={classes.table} >
-               {/* <TableHead>
-                       {cardsHeadCells.map(cardHeadcell => (
-                           <TableCell key={cardHeadcell.id}>
+               <TableHead>
+                       {
+                        cardsCells.map(cardsCell => (
+                           <TableCell key={cardsCell.id}>
                                <TableSortLabel 
-                                active={orderBy === cardHeadcell.id}
-                                direction={orderBy === cardHeadcell.id ? order : 'asc'}
-                                onClick={() => handleSortRequest(cardHeadcell.id)}
+                                active={orderBy === cardsCell.id}
+                                direction={orderBy === cardsCell.id ? order : 'asc'}
+                                onClick={() => handleSortRequest(cardsCell.id)}
                                 > 
-                                {cardHeadcell.label}
+                                {cardsCell.label}
                                </TableSortLabel> 
                            </TableCell>)) 
                        }
-               </TableHead> */}
-                   {/* <TableBody> 
-                        {rowsAfterSorting().map((row => <TableRow>
-                            <TableCell key='name'>{row.name}</TableCell>
-                            <TableCell key='cards-count'>{row.cardsCount}</TableCell>
-                            <TableCell key='updated'>{row.updated}</TableCell>
+                      <TableCell> 
+                         
+                       
+                       {/* create a container to add card */}
+
+                    </TableCell>
+               </TableHead>
+                   <TableBody> 
+                        {cards.map((card => <TableRow> 
+                            <TableCell key='name' >{card.question}</TableCell>
+                            <TableCell key='cards-count'>{card.answer}</TableCell>
+                            <TableCell key='grade'>{card.grade}</TableCell>
+                            <TableCell key='updated'>{card.updated}</TableCell>
                             <TableCell key='url'></TableCell>
                             <TableCell><button>Update</button></TableCell>
-                            <TableCell><button>Delete</button></TableCell>
+                            <TableCell>
+                            
+                            {/* create a func for deleting  */}
+
+                            </TableCell>
+                            <TableCell></TableCell>
                         </TableRow>))} 
-                   </TableBody> */}
+                   </TableBody>
                </Table>
-           </TableContainer>
+           </TableContainer>    
+           <Pagination /> 
         </div>
     )
 }
+ 

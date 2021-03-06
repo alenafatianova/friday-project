@@ -1,20 +1,22 @@
 import {ApiCards, ResponseTypeCardsData} from "../../api/card-api";
 import {RequestStatusType, setAppErrorAC} from "./app-reducer";
 import { Dispatch } from 'redux';
+import { ThunkDispatch } from "redux-thunk";
+import { AppRootStateType } from "../store";
 
 
 export type stateProps = {
-    cards: Array<ResponseTypeCardsData> | null
+    cards: Array<ResponseTypeCardsData> 
     status: RequestStatusType,
-    error: string | null,
+    error: string,
     pageSize: number
     pageCurrent: number
 }
 
 const initialState: stateProps = {
-    cards: null,
+    cards: [] as  Array<ResponseTypeCardsData>,
     status: "succeeded",
-    error: null,
+    error: '',
     pageSize: 3,
     pageCurrent:1
 }
@@ -26,7 +28,7 @@ export const CardsReducer = (state: stateProps = initialState, action: cardsActi
             return {...state, cards: action.cards}
         case "SET-STATUS":
             return {...state, status: action.status};
-        case "SER-ERROR":
+        case "SET-ERROR":
             return {...state, error: action.error}
         case "SET-CURRENT-PAGE":
             return {...state, pageCurrent: action.pageCurrent}
@@ -40,7 +42,7 @@ export const CardsReducer = (state: stateProps = initialState, action: cardsActi
 
 //actions
 
-export const setCardsAC = (cards: Array<ResponseTypeCardsData> | null) => ({
+export const setCardsAC = (cards: ResponseTypeCardsData[]) => ({
     type: "GET-CARDS", cards} as const)
 export const setPageSizeAC = (pageSize: number) => ({
     type: "SET-PAGE-SIZE",pageSize }as const)
@@ -49,20 +51,24 @@ export const setCurrentPageAC = (pageCurrent: number) => ({
 export const setStatusAC = (status: RequestStatusType)=> ({
     type: "SET-STATUS", status }as const)
 export const getErrorAC = (error: string)=> ({
-    type: "SER-ERROR", error}as const)
+    type: "SET-ERROR", error}as const)
 
+//thunks type 
+type thunkType = ThunkDispatch<AppRootStateType, {}, cardsActiontype> 
 //thunks
-export const getCardsThunk = (pageSize:number, currentPage:number, cardsPack_id: string) => (dispatch: Dispatch) => {
+export const getCardsThunk = (cardsPack_id: string, currentPage?:number, pageSize?:number) => async(dispatch: thunkType, getState: () => AppRootStateType) => {
+   
     dispatch(setStatusAC('loading'))
-    ApiCards.getCards(cardsPack_id, pageSize, currentPage)
+    await ApiCards.getCards(cardsPack_id, currentPage, pageSize)
         .then((res) => {
-            console.log('cards:', res.data.cards)
+            //console.log('cards:', res.data.cards)
             dispatch(setCardsAC(res.data.cards))
             dispatch(setStatusAC('succeeded'))
         })
         .catch((e) => {
             const error =  e.response ? e.response.data.error
                 : (e.message + ', more details in the console');
+                //@ts-ignore
             dispatch(setAppErrorAC(error))
             dispatch(setStatusAC('failed'))
         })
@@ -72,16 +78,16 @@ export const getCardsThunk = (pageSize:number, currentPage:number, cardsPack_id:
 };
 
 export const addCardsThunk = (cardsPack_id: string, question: string, answer: string) =>
-    (dispatch: Dispatch) => {
+    async(dispatch: thunkType, getState: () => AppRootStateType) => {
          dispatch(setStatusAC('loading'))
-        ApiCards.addCards(cardsPack_id, question, answer)
+        await ApiCards.addCards(cardsPack_id, question, answer)
             .then(() => {
-                //@ts-ignore
-                dispatch(getCardsThunk(pageSize, currentPage, cardsPack_id))
+                dispatch(getCardsThunk(cardsPack_id))
             })
             .catch((e) => {
                 const error =  e.response ? e.response.data.error
                     : (e.message + ', more details in the console');
+                     //@ts-ignore
                 dispatch(setAppErrorAC(error))
                 dispatch(setStatusAC('failed'))
             })

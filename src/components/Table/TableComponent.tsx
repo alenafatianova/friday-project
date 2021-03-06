@@ -19,7 +19,7 @@ import { DeletePackModalContainer } from '../Modal/DeletePackModalContainer'
 
 
 
-export const TableComponent = () => {
+export const TableComponent = React.memo(() => {
     
     const rows = useSelector<AppRootStateType, Array<CardsPackResponseType>>(state => state.packs.cardPacks)
    
@@ -103,9 +103,10 @@ export const TableComponent = () => {
     }, [dispatch])
     
     
-    const onDeletePack = (id: string) => {
-        dispatch(deletePackThunk(id))
-    }
+    const onDeletePack = useCallback((pack: CardsPackResponseType) => {
+        dispatch(deletePackThunk(pack._id))
+        console.log(pack._id)
+    }, [dispatch])
     
     return ( 
         <div>
@@ -136,7 +137,7 @@ export const TableComponent = () => {
                             <TableCell key='url'></TableCell>
                             <TableCell><button>Update</button></TableCell>
                             <TableCell>
-                            <DeletePackModalContainer deletePack={onDeletePack} />
+                            <DeletePackModalContainer deletePack={() => onDeletePack} />
                             </TableCell>
                             <TableCell></TableCell>
                         </TableRow>))} 
@@ -146,7 +147,7 @@ export const TableComponent = () => {
            <Pagination /> 
         </div>
     )
-}
+})
 
 
 

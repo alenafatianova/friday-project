@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {setCurrentPageAC } from '../../redux/reducers/cards-pack-reducer'
 import { AppRootStateType } from '../../redux/store'
@@ -21,7 +21,6 @@ export const Pagination = () => {
         dispatch(setCurrentPageAC(currentPage))
     },[dispatch])
 
-     
 
     return (
         <div>

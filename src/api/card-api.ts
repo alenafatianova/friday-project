@@ -17,7 +17,7 @@ export type ResponseTypeCardsData = {
 
 
 export type ResponseTypeCardsType = {
-    cards: Array<ResponseTypeCardsData> | null
+    cards: Array<ResponseTypeCardsData> 
     cardsTotalCount: number
     maxGrade: number
     minGrade: number
@@ -27,8 +27,8 @@ export type ResponseTypeCardsType = {
 }
 
 export const ApiCards = {
-    getCards(cardsPack_id: string, pageCount?: number, page?: number,) {
-        return instance.get<ResponseTypeCardsType>("cards/card", {params: {cardsPack_id, page, pageCount}})
+    getCards(cardsPack_id: string, page?: number, pageCount?: number ) {
+        return instance.get<ResponseTypeCardsType>(`cards/card?cardsPack_id=${cardsPack_id}`, {params: { page, pageCount}})
     },
     addCards(cardsPack_id: string, question: string, answer: string) {
         return instance.post<ResponseTypeCardsData>("cards/card", {card: {cardsPack_id, question, answer}})
