@@ -3,7 +3,22 @@ import { packsAPI} from "../../api/packs-api";
 import { ThunkDispatch } from 'redux-thunk';
 
 export const initialPacksState: initialPacksStateType = {
-    cardPacks: [] as CardsPackResponseType[] , //-- список всех packs
+    cardPacks: [
+        {
+            user_id: "",  		
+            _id: "",
+            name: '',
+            path: '/def',
+            grade: 0,
+            shots: 0,
+            rating: 0,
+            type: 'pack',
+            created: '',
+            updated: '',
+            cardsCount: 10,
+            __v: 0
+        }
+    ], //-- список всех packs
     cardPacksTotalCount: 50, //-- количество колод 
     maxCardsCount: 10,
     minCardsCount: 1, //-- минимальное кол-во карточек в колоде

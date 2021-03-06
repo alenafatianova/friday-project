@@ -10,7 +10,7 @@ import { AppRootStateType } from '../../redux/store'
 import TableHead from '@material-ui/core/TableHead'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { Pagination } from './Pagination'
-import { CardsPackResponseType } from '../../redux/reducers/cards-pack-reducer'
+import { CardsPackResponseType, updatePackThunk } from '../../redux/reducers/cards-pack-reducer'
 import { addPackThunk, deletePackThunk } from '../../redux/reducers/cards-pack-reducer'
 import { AddPackModalContainer } from '../Modal/AddPackModalContainer'
 import { DeletePackModalContainer } from '../Modal/DeletePackModalContainer'
@@ -103,11 +103,6 @@ export const TableComponent = React.memo(() => {
     }, [dispatch])
     
     
-    const onDeletePack = useCallback((pack: CardsPackResponseType) => {
-        dispatch(deletePackThunk(pack._id))
-        console.log(pack._id)
-    }, [dispatch])
-    
     return ( 
         <div>
            <TableContainer>
@@ -130,17 +125,25 @@ export const TableComponent = React.memo(() => {
                     </TableCell>
                </TableHead>
                    <TableBody> 
-                        {rowsAfterSorting().map((row => <TableRow>
+                        {rowsAfterSorting().map((row => {
+                            const onDelete = () => {
+                                dispatch(deletePackThunk(row._id))
+                            }
+                            const updatePack = () => {
+                                dispatch(updatePackThunk(row._id, row.name))
+                            }
+                        return <TableRow>
                             <TableCell key='name' >{row.name}</TableCell>
                             <TableCell key='cards-count'>{row.cardsCount}</TableCell>
                             <TableCell key='updated'>{row.updated}</TableCell>
                             <TableCell key='url'></TableCell>
-                            <TableCell><button>Update</button></TableCell>
+                            <TableCell><button onClick={updatePack}>Update</button></TableCell>
+                            <TableCell><button onClick={onDelete}>Delete</button></TableCell>
                             <TableCell>
-                            <DeletePackModalContainer deletePack={() => onDeletePack} />
+                           
                             </TableCell>
                             <TableCell></TableCell>
-                        </TableRow>))} 
+                        </TableRow>}))}  
                    </TableBody>
                </Table>
            </TableContainer>    
