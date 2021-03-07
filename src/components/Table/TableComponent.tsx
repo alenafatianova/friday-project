@@ -14,6 +14,7 @@ import { CardsPackResponseType, updatePackThunk } from '../../redux/reducers/car
 import { addPackThunk, deletePackThunk } from '../../redux/reducers/cards-pack-reducer'
 import { AddPackModalContainer } from '../Modal/AddPackModalContainer'
 import { DeletePackModalContainer } from '../Modal/DeletePackModalContainer'
+import { UpdatePackNameModal } from '../Modal/UpdatePackNameMdal'
 
 
 
@@ -102,7 +103,7 @@ export const TableComponent = React.memo(() => {
         dispatch(addPackThunk(name))
     }, [dispatch])
     
-    
+   
     return ( 
         <div>
            <TableContainer>
@@ -126,6 +127,7 @@ export const TableComponent = React.memo(() => {
                </TableHead>
                    <TableBody> 
                         {rowsAfterSorting().map((row => {
+                            
                             const onDelete = () => {
                                 dispatch(deletePackThunk(row._id))
                             }
@@ -137,9 +139,11 @@ export const TableComponent = React.memo(() => {
                             <TableCell key='cards-count'>{row.cardsCount}</TableCell>
                             <TableCell key='updated'>{row.updated}</TableCell>
                             <TableCell key='url'></TableCell>
-                            <TableCell><button onClick={onUpdatePack}>Update</button></TableCell>
                             <TableCell>
-                            <DeletePackModalContainer deletePack={onDelete}/> 
+                                <UpdatePackNameModal updatedPack={onUpdatePack} />
+                            </TableCell>
+                            <TableCell>
+                                <DeletePackModalContainer deletePack={onDelete}/> 
                             </TableCell>
                             <TableCell></TableCell>
                         </TableRow>}))}   

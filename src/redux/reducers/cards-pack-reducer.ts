@@ -118,7 +118,7 @@ export const addPackThunk = (name: string) => async(dispatch: thunksType, getSta
         .catch(err =>  alert(err))
 }
 
-export const updatePackThunk = (_id: string, name: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
+export const updatePackThunk = (_id: string, name?: string) => async(dispatch: thunksType,  getState: () => AppRootStateType) => {
     const page = getState().packs.page
     const pageCount = getState().packs.pageCount
     const user_id = getState().profile._id

@@ -16,7 +16,7 @@ export const packsAPI = {
     addCardsPack(name: string) {
         return  instance.post<CardsPackResponseType>('cards/pack', {cardsPack: {name}})
     },       
-    changeCardsPack(_id: string, name: string) {
+    changeCardsPack(_id: string, name?: string) {
         return instance.put<CardsPackResponseType>('cards/pack', {cardsPack: {_id, name}})
     },
     deleteCardsPack(_id: string) {

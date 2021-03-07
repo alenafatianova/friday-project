@@ -2,10 +2,6 @@ import React, { FC, useState } from 'react'
 import { Modal } from './Modal'
 import '../../styles/deletePack.css'
 import { useParams } from 'react-router-dom'
-import { CardsPackResponseType, initialPacksStateType } from '../../redux/reducers/cards-pack-reducer'
-import { AppRootStateType } from '../../redux/store'
-import { useSelector } from 'react-redux'
-
 
 
 type props = {
